@@ -1,8 +1,4 @@
-Learned Nutrient Dosing Control for Algae Cultivation
-
-A research-oriented control system for autonomous algae nutrient regulation using nonlinear ecosystem simulation, optimization-based labeling, and temporal deep learning.
-
-The project models real-world aquatic dynamics including delayed nutrient absorption, biological uptake, thermal effects, turbidity evolution, and environmental disturbances. A tuned classical PID controller and an LSTM-based learned policy are evaluated in closed loop to study the tradeoff between conservative stability-focused control and adaptive precision regulation.
+### Learned Nutrient Dosing Control controls a nonlinear delayed aquatic ecosystem.
 
 The pipeline includes:
 
@@ -17,6 +13,48 @@ and publication-style evaluation/visualization.
 The goal is not simply to outperform classical control, but to characterize when learned controllers become advantageous in delayed, nonlinear, multi-regime ecological systems.
 
 This is **not** a forecasting model. It learns a control policy using optimization-generated pseudo-labels and LSTM sequence modeling.
+
+## Overview
+
+The system continuously monitors multivariate aquatic ecosystem parameters such as:
+
+Electrical Conductivity (EC)
+Water Temperature
+Turbidity
+pH
+Dissolved Oxygen
+
+and learns a control policy that outputs:
+
+Nutrient Pump Flowrate
+Pump Activation Duration
+
+to maintain ecological stability and nutrient balance in a dynamic algae cultivation environment.
+
+Unlike conventional threshold-based systems, this project models the environment as a nonlinear delayed ecosystem with:
+
+delayed nutrient absorption,
+biological uptake,
+algae growth dynamics,
+disturbance-sensitive equilibrium,
+oscillatory instability,
+ecological collapse conditions,
+and active closed-loop control requirements.
+Core Research Goal
+
+This project investigates the tradeoff between:
+
+Classical Stability-First Control
+
+(PID / rule-based control)
+
+vs
+
+Learned Precision Regulation
+
+(LSTM sequence policy learning)
+
+The tuned PID controller establishes a robust, conservative ecological baseline.
 
 ## Simulator (v3 — Smooth EC, Strong Thermal, Decoupled Turbidity)
 
@@ -71,6 +109,51 @@ configs/             → YAML experiment config
 main.py              → end-to-end orchestration
 ```
 
+```
+simulation/
+│
+├── dynamics.py
+├── environment.py
+├── synthetic_generator.py
+├── optimization_labeler.py
+├── disturbances.py
+└── validate_dynamics.py
+
+preprocessing/
+│
+├── feature_engineering.py
+├── sequence_builder.py
+└── scalers.py
+
+models/
+│
+└── lstm_policy.py
+
+controllers/
+│
+├── pid_controller.py
+└── pid_tuner.py
+
+training/
+│
+├── trainer.py
+├── losses.py
+└── metrics.py
+
+simulation_runner/
+│
+└── closed_loop_eval.py
+
+visualization/
+│
+└── plots.py
+
+configs/
+│
+├── default.yaml
+└── pid_tune_quick.yaml
+```
+
 ## Quick Start
 
 ```bash
@@ -105,13 +188,32 @@ python main.py --stage export      # TorchScript / ONNX export
 - **Output**: `(flowrate, duration)`
 - **Labels**: Short-horizon constrained search minimizing EC error, nutrient cost, instability, overshoot
 
+## Generated artifacts include:
+
+trajectory CSVs,
+optimization labels,
+trained policies,
+controller metrics,
+publication-quality plots,
+TorchScript exports.
+Research Contributions
+
+## Metrics include:
+
+EC tracking error,
+overshoot,
+oscillation amplitude,
+nutrient efficiency,
+control smoothness,
+disturbance recovery,
+collapse prevention.
+Validation and Diagnostics
+
+The project includes extensive visualization and diagnostics:
+
 ## Reproducibility
 
 - Fixed seeds in `configs/default.yaml`
 - Trajectory-level train/val/test splits (no window leakage)
 - Train-only scaler fitting
 - Experiment metadata JSON per run
-
-## Citation / Research
-
-Designed for publication experiments: modular configs, baseline controllers, robustness scenarios, and closed-loop metrics (overshoot, settling time, nutrient efficiency).
