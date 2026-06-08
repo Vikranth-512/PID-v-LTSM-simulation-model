@@ -54,29 +54,6 @@ Learned Precision Regulation
 
 The tuned PID controller establishes a robust, conservative ecological baseline.
 
-## Simulator (v3 — Smooth EC, Strong Thermal, Decoupled Turbidity)
-
-**v3 refinements** over active-equilibrium v2:
-- **EC**: soft saturation, assimilation lag, capped queue release, second-order damping (no vertical jumps to ceiling)
-- **Temperature**: Gaussian optimal zone × Q10; materially changes depletion and control difficulty
-- **Turbidity**: biomass memory, lagged growth drive, sediment shocks independent of EC
-
-## Simulator (v2 — Active Equilibrium)
-
-The tank is an **actively regulated** nonlinear system:
-
-- **Without dosing**: EC depletes continuously; turbidity declines (starvation).
-- **With correct dosing**: EC tracks target; algae/turbidity stabilizes via logistic growth.
-- **With poor dosing**: delayed overshoot, oscillations, nutrient waste.
-
-Key mechanisms: delayed absorption queue, Q10 temperature metabolism, EC-coupled turbidity, biological inertia, instability above `ec_instability_threshold`.
-
-Validate behavior:
-
-```bash
-python main.py --config configs/default.yaml --stage validate_dynamics
-```
-
 ## PID tuning (systematic baseline optimization)
 
 ```bash
