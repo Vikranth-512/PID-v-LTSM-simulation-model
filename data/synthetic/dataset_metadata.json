@@ -2,1201 +2,1201 @@
   "trajectories": [
     {
       "id": 0,
-      "file": "trajectory_00000.csv",
+      "file": "trajectory_000.csv",
       "length": 410,
       "scenario": "normal"
     },
     {
       "id": 1,
-      "file": "trajectory_00001.csv",
+      "file": "trajectory_001.csv",
       "length": 457,
       "scenario": "noisy_sensors"
     },
     {
       "id": 2,
-      "file": "trajectory_00002.csv",
+      "file": "trajectory_002.csv",
       "length": 400,
       "scenario": "delayed_response"
     },
     {
       "id": 3,
-      "file": "trajectory_00003.csv",
+      "file": "trajectory_003.csv",
       "length": 432,
       "scenario": "temp_spike"
     },
     {
       "id": 4,
-      "file": "trajectory_00004.csv",
+      "file": "trajectory_004.csv",
       "length": 235,
       "scenario": "cold_shock"
     },
     {
       "id": 5,
-      "file": "trajectory_00005.csv",
+      "file": "trajectory_005.csv",
       "length": 138,
       "scenario": "cold_shock"
     },
     {
       "id": 6,
-      "file": "trajectory_00006.csv",
+      "file": "trajectory_006.csv",
       "length": 169,
       "scenario": "nutrient_depletion"
     },
     {
       "id": 7,
-      "file": "trajectory_00007.csv",
+      "file": "trajectory_007.csv",
       "length": 161,
       "scenario": "nutrient_depletion"
     },
     {
       "id": 8,
-      "file": "trajectory_00008.csv",
+      "file": "trajectory_008.csv",
       "length": 392,
       "scenario": "actuator_failure"
     },
     {
       "id": 9,
-      "file": "trajectory_00009.csv",
+      "file": "trajectory_009.csv",
       "length": 283,
       "scenario": "actuator_failure"
     },
     {
       "id": 10,
-      "file": "trajectory_00010.csv",
+      "file": "trajectory_010.csv",
       "length": 366,
       "scenario": "nutrient_depletion"
     },
     {
       "id": 11,
-      "file": "trajectory_00011.csv",
+      "file": "trajectory_011.csv",
       "length": 115,
       "scenario": "temp_spike"
     },
     {
       "id": 12,
-      "file": "trajectory_00012.csv",
+      "file": "trajectory_012.csv",
       "length": 481,
       "scenario": "saturation"
     },
     {
       "id": 13,
-      "file": "trajectory_00013.csv",
+      "file": "trajectory_013.csv",
       "length": 369,
       "scenario": "actuator_failure"
     },
     {
       "id": 14,
-      "file": "trajectory_00014.csv",
+      "file": "trajectory_014.csv",
       "length": 317,
       "scenario": "delayed_response"
     },
     {
       "id": 15,
-      "file": "trajectory_00015.csv",
+      "file": "trajectory_015.csv",
       "length": 220,
       "scenario": "ec_drop"
     },
     {
       "id": 16,
-      "file": "trajectory_00016.csv",
+      "file": "trajectory_016.csv",
       "length": 175,
       "scenario": "nutrient_depletion"
     },
     {
       "id": 17,
-      "file": "trajectory_00017.csv",
+      "file": "trajectory_017.csv",
       "length": 495,
       "scenario": "nutrient_depletion"
     },
     {
       "id": 18,
-      "file": "trajectory_00018.csv",
+      "file": "trajectory_018.csv",
       "length": 458,
       "scenario": "ec_drop"
     },
     {
       "id": 19,
-      "file": "trajectory_00019.csv",
+      "file": "trajectory_019.csv",
       "length": 254,
       "scenario": "saturation"
     },
     {
       "id": 20,
-      "file": "trajectory_00020.csv",
+      "file": "trajectory_020.csv",
       "length": 103,
       "scenario": "heatwave"
     },
     {
       "id": 21,
-      "file": "trajectory_00021.csv",
+      "file": "trajectory_021.csv",
       "length": 157,
       "scenario": "heatwave"
     },
     {
       "id": 22,
-      "file": "trajectory_00022.csv",
+      "file": "trajectory_022.csv",
       "length": 201,
       "scenario": "ec_drop"
     },
     {
       "id": 23,
-      "file": "trajectory_00023.csv",
+      "file": "trajectory_023.csv",
       "length": 169,
       "scenario": "actuator_failure"
     },
     {
       "id": 24,
-      "file": "trajectory_00024.csv",
+      "file": "trajectory_024.csv",
       "length": 186,
       "scenario": "delayed_response"
     },
     {
       "id": 25,
-      "file": "trajectory_00025.csv",
+      "file": "trajectory_025.csv",
       "length": 481,
       "scenario": "normal"
     },
     {
       "id": 26,
-      "file": "trajectory_00026.csv",
+      "file": "trajectory_026.csv",
       "length": 172,
       "scenario": "sediment"
     },
     {
       "id": 27,
-      "file": "trajectory_00027.csv",
+      "file": "trajectory_027.csv",
       "length": 230,
       "scenario": "noisy_sensors"
     },
     {
       "id": 28,
-      "file": "trajectory_00028.csv",
+      "file": "trajectory_028.csv",
       "length": 239,
       "scenario": "delayed_response"
     },
     {
       "id": 29,
-      "file": "trajectory_00029.csv",
+      "file": "trajectory_029.csv",
       "length": 261,
       "scenario": "actuator_failure"
     },
     {
       "id": 30,
-      "file": "trajectory_00030.csv",
+      "file": "trajectory_030.csv",
       "length": 484,
       "scenario": "saturation"
     },
     {
       "id": 31,
-      "file": "trajectory_00031.csv",
+      "file": "trajectory_031.csv",
       "length": 194,
       "scenario": "sediment"
     },
     {
       "id": 32,
-      "file": "trajectory_00032.csv",
+      "file": "trajectory_032.csv",
       "length": 447,
       "scenario": "temp_spike"
     },
     {
       "id": 33,
-      "file": "trajectory_00033.csv",
+      "file": "trajectory_033.csv",
       "length": 286,
       "scenario": "cold_shock"
     },
     {
       "id": 34,
-      "file": "trajectory_00034.csv",
+      "file": "trajectory_034.csv",
       "length": 295,
       "scenario": "temp_spike"
     },
     {
       "id": 35,
-      "file": "trajectory_00035.csv",
+      "file": "trajectory_035.csv",
       "length": 408,
       "scenario": "delayed_response"
     },
     {
       "id": 36,
-      "file": "trajectory_00036.csv",
+      "file": "trajectory_036.csv",
       "length": 157,
       "scenario": "ec_drop"
     },
     {
       "id": 37,
-      "file": "trajectory_00037.csv",
+      "file": "trajectory_037.csv",
       "length": 178,
       "scenario": "ec_drop"
     },
     {
       "id": 38,
-      "file": "trajectory_00038.csv",
+      "file": "trajectory_038.csv",
       "length": 384,
       "scenario": "delayed_response"
     },
     {
       "id": 39,
-      "file": "trajectory_00039.csv",
+      "file": "trajectory_039.csv",
       "length": 274,
       "scenario": "sediment"
     },
     {
       "id": 40,
-      "file": "trajectory_00040.csv",
+      "file": "trajectory_040.csv",
       "length": 193,
       "scenario": "actuator_failure"
     },
     {
       "id": 41,
-      "file": "trajectory_00041.csv",
+      "file": "trajectory_041.csv",
       "length": 380,
       "scenario": "nutrient_depletion"
     },
     {
       "id": 42,
-      "file": "trajectory_00042.csv",
+      "file": "trajectory_042.csv",
       "length": 297,
       "scenario": "noisy_sensors"
     },
     {
       "id": 43,
-      "file": "trajectory_00043.csv",
+      "file": "trajectory_043.csv",
       "length": 469,
       "scenario": "ec_drop"
     },
     {
       "id": 44,
-      "file": "trajectory_00044.csv",
+      "file": "trajectory_044.csv",
       "length": 113,
       "scenario": "saturation"
     },
     {
       "id": 45,
-      "file": "trajectory_00045.csv",
+      "file": "trajectory_045.csv",
       "length": 109,
       "scenario": "noisy_sensors"
     },
     {
       "id": 46,
-      "file": "trajectory_00046.csv",
+      "file": "trajectory_046.csv",
       "length": 444,
       "scenario": "actuator_failure"
     },
     {
       "id": 47,
-      "file": "trajectory_00047.csv",
+      "file": "trajectory_047.csv",
       "length": 474,
       "scenario": "saturation"
     },
     {
       "id": 48,
-      "file": "trajectory_00048.csv",
+      "file": "trajectory_048.csv",
       "length": 310,
       "scenario": "heatwave"
     },
     {
       "id": 49,
-      "file": "trajectory_00049.csv",
+      "file": "trajectory_049.csv",
       "length": 310,
       "scenario": "saturation"
     },
     {
       "id": 50,
-      "file": "trajectory_00050.csv",
+      "file": "trajectory_050.csv",
       "length": 152,
       "scenario": "temp_spike"
     },
     {
       "id": 51,
-      "file": "trajectory_00051.csv",
+      "file": "trajectory_051.csv",
       "length": 157,
       "scenario": "heatwave"
     },
     {
       "id": 52,
-      "file": "trajectory_00052.csv",
+      "file": "trajectory_052.csv",
       "length": 315,
       "scenario": "noisy_sensors"
     },
     {
       "id": 53,
-      "file": "trajectory_00053.csv",
+      "file": "trajectory_053.csv",
       "length": 359,
       "scenario": "heatwave"
     },
     {
       "id": 54,
-      "file": "trajectory_00054.csv",
+      "file": "trajectory_054.csv",
       "length": 458,
       "scenario": "noisy_sensors"
     },
     {
       "id": 55,
-      "file": "trajectory_00055.csv",
+      "file": "trajectory_055.csv",
       "length": 196,
       "scenario": "actuator_failure"
     },
     {
       "id": 56,
-      "file": "trajectory_00056.csv",
+      "file": "trajectory_056.csv",
       "length": 473,
       "scenario": "sediment"
     },
     {
       "id": 57,
-      "file": "trajectory_00057.csv",
+      "file": "trajectory_057.csv",
       "length": 261,
       "scenario": "ec_drop"
     },
     {
       "id": 58,
-      "file": "trajectory_00058.csv",
+      "file": "trajectory_058.csv",
       "length": 372,
       "scenario": "sediment"
     },
     {
       "id": 59,
-      "file": "trajectory_00059.csv",
+      "file": "trajectory_059.csv",
       "length": 183,
       "scenario": "heatwave"
     },
     {
       "id": 60,
-      "file": "trajectory_00060.csv",
+      "file": "trajectory_060.csv",
       "length": 184,
       "scenario": "temp_spike"
     },
     {
       "id": 61,
-      "file": "trajectory_00061.csv",
+      "file": "trajectory_061.csv",
       "length": 433,
       "scenario": "delayed_response"
     },
     {
       "id": 62,
-      "file": "trajectory_00062.csv",
+      "file": "trajectory_062.csv",
       "length": 181,
       "scenario": "nutrient_depletion"
     },
     {
       "id": 63,
-      "file": "trajectory_00063.csv",
+      "file": "trajectory_063.csv",
       "length": 276,
       "scenario": "nutrient_depletion"
     },
     {
       "id": 64,
-      "file": "trajectory_00064.csv",
+      "file": "trajectory_064.csv",
       "length": 130,
       "scenario": "actuator_failure"
     },
     {
       "id": 65,
-      "file": "trajectory_00065.csv",
+      "file": "trajectory_065.csv",
       "length": 477,
       "scenario": "noisy_sensors"
     },
     {
       "id": 66,
-      "file": "trajectory_00066.csv",
+      "file": "trajectory_066.csv",
       "length": 255,
       "scenario": "actuator_failure"
     },
     {
       "id": 67,
-      "file": "trajectory_00067.csv",
+      "file": "trajectory_067.csv",
       "length": 281,
       "scenario": "sediment"
     },
     {
       "id": 68,
-      "file": "trajectory_00068.csv",
+      "file": "trajectory_068.csv",
       "length": 323,
       "scenario": "delayed_response"
     },
     {
       "id": 69,
-      "file": "trajectory_00069.csv",
+      "file": "trajectory_069.csv",
       "length": 481,
       "scenario": "normal"
     },
     {
       "id": 70,
-      "file": "trajectory_00070.csv",
+      "file": "trajectory_070.csv",
       "length": 162,
       "scenario": "delayed_response"
     },
     {
       "id": 71,
-      "file": "trajectory_00071.csv",
+      "file": "trajectory_071.csv",
       "length": 426,
       "scenario": "delayed_response"
     },
     {
       "id": 72,
-      "file": "trajectory_00072.csv",
+      "file": "trajectory_072.csv",
       "length": 298,
       "scenario": "normal"
     },
     {
       "id": 73,
-      "file": "trajectory_00073.csv",
+      "file": "trajectory_073.csv",
       "length": 257,
       "scenario": "noisy_sensors"
     },
     {
       "id": 74,
-      "file": "trajectory_00074.csv",
+      "file": "trajectory_074.csv",
       "length": 170,
       "scenario": "sediment"
     },
     {
       "id": 75,
-      "file": "trajectory_00075.csv",
+      "file": "trajectory_075.csv",
       "length": 171,
       "scenario": "temp_spike"
     },
     {
       "id": 76,
-      "file": "trajectory_00076.csv",
+      "file": "trajectory_076.csv",
       "length": 297,
       "scenario": "temp_spike"
     },
     {
       "id": 77,
-      "file": "trajectory_00077.csv",
+      "file": "trajectory_077.csv",
       "length": 324,
       "scenario": "sediment"
     },
     {
       "id": 78,
-      "file": "trajectory_00078.csv",
+      "file": "trajectory_078.csv",
       "length": 244,
       "scenario": "heatwave"
     },
     {
       "id": 79,
-      "file": "trajectory_00079.csv",
+      "file": "trajectory_079.csv",
       "length": 324,
       "scenario": "ec_drop"
     },
     {
       "id": 80,
-      "file": "trajectory_00080.csv",
+      "file": "trajectory_080.csv",
       "length": 457,
       "scenario": "sediment"
     },
     {
       "id": 81,
-      "file": "trajectory_00081.csv",
+      "file": "trajectory_081.csv",
       "length": 146,
       "scenario": "actuator_failure"
     },
     {
       "id": 82,
-      "file": "trajectory_00082.csv",
+      "file": "trajectory_082.csv",
       "length": 154,
       "scenario": "temp_spike"
     },
     {
       "id": 83,
-      "file": "trajectory_00083.csv",
+      "file": "trajectory_083.csv",
       "length": 420,
       "scenario": "nutrient_depletion"
     },
     {
       "id": 84,
-      "file": "trajectory_00084.csv",
+      "file": "trajectory_084.csv",
       "length": 125,
       "scenario": "noisy_sensors"
     },
     {
       "id": 85,
-      "file": "trajectory_00085.csv",
+      "file": "trajectory_085.csv",
       "length": 471,
       "scenario": "cold_shock"
     },
     {
       "id": 86,
-      "file": "trajectory_00086.csv",
+      "file": "trajectory_086.csv",
       "length": 467,
       "scenario": "ec_drop"
     },
     {
       "id": 87,
-      "file": "trajectory_00087.csv",
+      "file": "trajectory_087.csv",
       "length": 185,
       "scenario": "nutrient_depletion"
     },
     {
       "id": 88,
-      "file": "trajectory_00088.csv",
+      "file": "trajectory_088.csv",
       "length": 257,
       "scenario": "nutrient_depletion"
     },
     {
       "id": 89,
-      "file": "trajectory_00089.csv",
+      "file": "trajectory_089.csv",
       "length": 366,
       "scenario": "ec_drop"
     },
     {
       "id": 90,
-      "file": "trajectory_00090.csv",
+      "file": "trajectory_090.csv",
       "length": 202,
       "scenario": "heatwave"
     },
     {
       "id": 91,
-      "file": "trajectory_00091.csv",
+      "file": "trajectory_091.csv",
       "length": 286,
       "scenario": "nutrient_depletion"
     },
     {
       "id": 92,
-      "file": "trajectory_00092.csv",
+      "file": "trajectory_092.csv",
       "length": 497,
       "scenario": "actuator_failure"
     },
     {
       "id": 93,
-      "file": "trajectory_00093.csv",
+      "file": "trajectory_093.csv",
       "length": 112,
       "scenario": "cold_shock"
     },
     {
       "id": 94,
-      "file": "trajectory_00094.csv",
+      "file": "trajectory_094.csv",
       "length": 373,
       "scenario": "heatwave"
     },
     {
       "id": 95,
-      "file": "trajectory_00095.csv",
+      "file": "trajectory_095.csv",
       "length": 452,
       "scenario": "saturation"
     },
     {
       "id": 96,
-      "file": "trajectory_00096.csv",
+      "file": "trajectory_096.csv",
       "length": 114,
       "scenario": "actuator_failure"
     },
     {
       "id": 97,
-      "file": "trajectory_00097.csv",
+      "file": "trajectory_097.csv",
       "length": 385,
       "scenario": "sediment"
     },
     {
       "id": 98,
-      "file": "trajectory_00098.csv",
+      "file": "trajectory_098.csv",
       "length": 379,
       "scenario": "ec_drop"
     },
     {
       "id": 99,
-      "file": "trajectory_00099.csv",
+      "file": "trajectory_099.csv",
       "length": 186,
       "scenario": "temp_spike"
     },
     {
       "id": 100,
-      "file": "trajectory_00100.csv",
+      "file": "trajectory_100.csv",
       "length": 112,
       "scenario": "noisy_sensors"
     },
     {
       "id": 101,
-      "file": "trajectory_00101.csv",
+      "file": "trajectory_101.csv",
       "length": 303,
       "scenario": "saturation"
     },
     {
       "id": 102,
-      "file": "trajectory_00102.csv",
+      "file": "trajectory_102.csv",
       "length": 316,
       "scenario": "cold_shock"
     },
     {
       "id": 103,
-      "file": "trajectory_00103.csv",
+      "file": "trajectory_103.csv",
       "length": 140,
       "scenario": "sediment"
     },
     {
       "id": 104,
-      "file": "trajectory_00104.csv",
+      "file": "trajectory_104.csv",
       "length": 263,
       "scenario": "saturation"
     },
     {
       "id": 105,
-      "file": "trajectory_00105.csv",
+      "file": "trajectory_105.csv",
       "length": 273,
       "scenario": "normal"
     },
     {
       "id": 106,
-      "file": "trajectory_00106.csv",
+      "file": "trajectory_106.csv",
       "length": 380,
       "scenario": "normal"
     },
     {
       "id": 107,
-      "file": "trajectory_00107.csv",
+      "file": "trajectory_107.csv",
       "length": 262,
       "scenario": "ec_drop"
     },
     {
       "id": 108,
-      "file": "trajectory_00108.csv",
+      "file": "trajectory_108.csv",
       "length": 131,
       "scenario": "saturation"
     },
     {
       "id": 109,
-      "file": "trajectory_00109.csv",
+      "file": "trajectory_109.csv",
       "length": 291,
       "scenario": "delayed_response"
     },
     {
       "id": 110,
-      "file": "trajectory_00110.csv",
+      "file": "trajectory_110.csv",
       "length": 211,
       "scenario": "temp_spike"
     },
     {
       "id": 111,
-      "file": "trajectory_00111.csv",
+      "file": "trajectory_111.csv",
       "length": 423,
       "scenario": "noisy_sensors"
     },
     {
       "id": 112,
-      "file": "trajectory_00112.csv",
+      "file": "trajectory_112.csv",
       "length": 317,
       "scenario": "saturation"
     },
     {
       "id": 113,
-      "file": "trajectory_00113.csv",
+      "file": "trajectory_113.csv",
       "length": 484,
       "scenario": "temp_spike"
     },
     {
       "id": 114,
-      "file": "trajectory_00114.csv",
+      "file": "trajectory_114.csv",
       "length": 211,
       "scenario": "temp_spike"
     },
     {
       "id": 115,
-      "file": "trajectory_00115.csv",
+      "file": "trajectory_115.csv",
       "length": 323,
       "scenario": "ec_drop"
     },
     {
       "id": 116,
-      "file": "trajectory_00116.csv",
+      "file": "trajectory_116.csv",
       "length": 138,
       "scenario": "cold_shock"
     },
     {
       "id": 117,
-      "file": "trajectory_00117.csv",
+      "file": "trajectory_117.csv",
       "length": 182,
       "scenario": "sediment"
     },
     {
       "id": 118,
-      "file": "trajectory_00118.csv",
+      "file": "trajectory_118.csv",
       "length": 111,
       "scenario": "actuator_failure"
     },
     {
       "id": 119,
-      "file": "trajectory_00119.csv",
+      "file": "trajectory_119.csv",
       "length": 181,
       "scenario": "delayed_response"
     },
     {
       "id": 120,
-      "file": "trajectory_00120.csv",
+      "file": "trajectory_120.csv",
       "length": 351,
       "scenario": "noisy_sensors"
     },
     {
       "id": 121,
-      "file": "trajectory_00121.csv",
+      "file": "trajectory_121.csv",
       "length": 171,
       "scenario": "ec_drop"
     },
     {
       "id": 122,
-      "file": "trajectory_00122.csv",
+      "file": "trajectory_122.csv",
       "length": 162,
       "scenario": "saturation"
     },
     {
       "id": 123,
-      "file": "trajectory_00123.csv",
+      "file": "trajectory_123.csv",
       "length": 434,
       "scenario": "noisy_sensors"
     },
     {
       "id": 124,
-      "file": "trajectory_00124.csv",
+      "file": "trajectory_124.csv",
       "length": 206,
       "scenario": "actuator_failure"
     },
     {
       "id": 125,
-      "file": "trajectory_00125.csv",
+      "file": "trajectory_125.csv",
       "length": 320,
       "scenario": "noisy_sensors"
     },
     {
       "id": 126,
-      "file": "trajectory_00126.csv",
+      "file": "trajectory_126.csv",
       "length": 242,
       "scenario": "normal"
     },
     {
       "id": 127,
-      "file": "trajectory_00127.csv",
+      "file": "trajectory_127.csv",
       "length": 134,
       "scenario": "delayed_response"
     },
     {
       "id": 128,
-      "file": "trajectory_00128.csv",
+      "file": "trajectory_128.csv",
       "length": 385,
       "scenario": "cold_shock"
     },
     {
       "id": 129,
-      "file": "trajectory_00129.csv",
+      "file": "trajectory_129.csv",
       "length": 473,
       "scenario": "heatwave"
     },
     {
       "id": 130,
-      "file": "trajectory_00130.csv",
+      "file": "trajectory_130.csv",
       "length": 127,
       "scenario": "normal"
     },
     {
       "id": 131,
-      "file": "trajectory_00131.csv",
+      "file": "trajectory_131.csv",
       "length": 144,
       "scenario": "sediment"
     },
     {
       "id": 132,
-      "file": "trajectory_00132.csv",
+      "file": "trajectory_132.csv",
       "length": 362,
       "scenario": "ec_drop"
     },
     {
       "id": 133,
-      "file": "trajectory_00133.csv",
+      "file": "trajectory_133.csv",
       "length": 238,
       "scenario": "ec_drop"
     },
     {
       "id": 134,
-      "file": "trajectory_00134.csv",
+      "file": "trajectory_134.csv",
       "length": 377,
       "scenario": "delayed_response"
     },
     {
       "id": 135,
-      "file": "trajectory_00135.csv",
+      "file": "trajectory_135.csv",
       "length": 119,
       "scenario": "cold_shock"
     },
     {
       "id": 136,
-      "file": "trajectory_00136.csv",
+      "file": "trajectory_136.csv",
       "length": 407,
       "scenario": "delayed_response"
     },
     {
       "id": 137,
-      "file": "trajectory_00137.csv",
+      "file": "trajectory_137.csv",
       "length": 265,
       "scenario": "ec_drop"
     },
     {
       "id": 138,
-      "file": "trajectory_00138.csv",
+      "file": "trajectory_138.csv",
       "length": 205,
       "scenario": "ec_drop"
     },
     {
       "id": 139,
-      "file": "trajectory_00139.csv",
+      "file": "trajectory_139.csv",
       "length": 450,
       "scenario": "heatwave"
     },
     {
       "id": 140,
-      "file": "trajectory_00140.csv",
+      "file": "trajectory_140.csv",
       "length": 336,
       "scenario": "saturation"
     },
     {
       "id": 141,
-      "file": "trajectory_00141.csv",
+      "file": "trajectory_141.csv",
       "length": 369,
       "scenario": "temp_spike"
     },
     {
       "id": 142,
-      "file": "trajectory_00142.csv",
+      "file": "trajectory_142.csv",
       "length": 317,
       "scenario": "saturation"
     },
     {
       "id": 143,
-      "file": "trajectory_00143.csv",
+      "file": "trajectory_143.csv",
       "length": 500,
       "scenario": "cold_shock"
     },
     {
       "id": 144,
-      "file": "trajectory_00144.csv",
+      "file": "trajectory_144.csv",
       "length": 499,
       "scenario": "actuator_failure"
     },
     {
       "id": 145,
-      "file": "trajectory_00145.csv",
+      "file": "trajectory_145.csv",
       "length": 158,
       "scenario": "sediment"
     },
     {
       "id": 146,
-      "file": "trajectory_00146.csv",
+      "file": "trajectory_146.csv",
       "length": 498,
       "scenario": "cold_shock"
     },
     {
       "id": 147,
-      "file": "trajectory_00147.csv",
+      "file": "trajectory_147.csv",
       "length": 180,
       "scenario": "delayed_response"
     },
     {
       "id": 148,
-      "file": "trajectory_00148.csv",
+      "file": "trajectory_148.csv",
       "length": 444,
       "scenario": "temp_spike"
     },
     {
       "id": 149,
-      "file": "trajectory_00149.csv",
+      "file": "trajectory_149.csv",
       "length": 249,
       "scenario": "cold_shock"
     },
     {
       "id": 150,
-      "file": "trajectory_00150.csv",
+      "file": "trajectory_150.csv",
       "length": 363,
       "scenario": "sediment"
     },
     {
       "id": 151,
-      "file": "trajectory_00151.csv",
+      "file": "trajectory_151.csv",
       "length": 377,
       "scenario": "saturation"
     },
     {
       "id": 152,
-      "file": "trajectory_00152.csv",
+      "file": "trajectory_152.csv",
       "length": 159,
       "scenario": "temp_spike"
     },
     {
       "id": 153,
-      "file": "trajectory_00153.csv",
+      "file": "trajectory_153.csv",
       "length": 212,
       "scenario": "actuator_failure"
     },
     {
       "id": 154,
-      "file": "trajectory_00154.csv",
+      "file": "trajectory_154.csv",
       "length": 266,
       "scenario": "delayed_response"
     },
     {
       "id": 155,
-      "file": "trajectory_00155.csv",
+      "file": "trajectory_155.csv",
       "length": 304,
       "scenario": "saturation"
     },
     {
       "id": 156,
-      "file": "trajectory_00156.csv",
+      "file": "trajectory_156.csv",
       "length": 169,
       "scenario": "actuator_failure"
     },
     {
       "id": 157,
-      "file": "trajectory_00157.csv",
+      "file": "trajectory_157.csv",
       "length": 309,
       "scenario": "ec_drop"
     },
     {
       "id": 158,
-      "file": "trajectory_00158.csv",
+      "file": "trajectory_158.csv",
       "length": 457,
       "scenario": "sediment"
     },
     {
       "id": 159,
-      "file": "trajectory_00159.csv",
+      "file": "trajectory_159.csv",
       "length": 478,
       "scenario": "sediment"
     },
     {
       "id": 160,
-      "file": "trajectory_00160.csv",
+      "file": "trajectory_160.csv",
       "length": 288,
       "scenario": "delayed_response"
     },
     {
       "id": 161,
-      "file": "trajectory_00161.csv",
+      "file": "trajectory_161.csv",
       "length": 203,
       "scenario": "heatwave"
     },
     {
       "id": 162,
-      "file": "trajectory_00162.csv",
+      "file": "trajectory_162.csv",
       "length": 474,
       "scenario": "noisy_sensors"
     },
     {
       "id": 163,
-      "file": "trajectory_00163.csv",
+      "file": "trajectory_163.csv",
       "length": 220,
       "scenario": "delayed_response"
     },
     {
       "id": 164,
-      "file": "trajectory_00164.csv",
+      "file": "trajectory_164.csv",
       "length": 326,
       "scenario": "ec_drop"
     },
     {
       "id": 165,
-      "file": "trajectory_00165.csv",
+      "file": "trajectory_165.csv",
       "length": 265,
       "scenario": "delayed_response"
     },
     {
       "id": 166,
-      "file": "trajectory_00166.csv",
+      "file": "trajectory_166.csv",
       "length": 290,
       "scenario": "normal"
     },
     {
       "id": 167,
-      "file": "trajectory_00167.csv",
+      "file": "trajectory_167.csv",
       "length": 448,
       "scenario": "noisy_sensors"
     },
     {
       "id": 168,
-      "file": "trajectory_00168.csv",
+      "file": "trajectory_168.csv",
       "length": 135,
       "scenario": "cold_shock"
     },
     {
       "id": 169,
-      "file": "trajectory_00169.csv",
+      "file": "trajectory_169.csv",
       "length": 321,
       "scenario": "nutrient_depletion"
     },
     {
       "id": 170,
-      "file": "trajectory_00170.csv",
+      "file": "trajectory_170.csv",
       "length": 168,
       "scenario": "delayed_response"
     },
     {
       "id": 171,
-      "file": "trajectory_00171.csv",
+      "file": "trajectory_171.csv",
       "length": 338,
       "scenario": "cold_shock"
     },
     {
       "id": 172,
-      "file": "trajectory_00172.csv",
+      "file": "trajectory_172.csv",
       "length": 130,
       "scenario": "temp_spike"
     },
     {
       "id": 173,
-      "file": "trajectory_00173.csv",
+      "file": "trajectory_173.csv",
       "length": 180,
       "scenario": "nutrient_depletion"
     },
     {
       "id": 174,
-      "file": "trajectory_00174.csv",
+      "file": "trajectory_174.csv",
       "length": 469,
       "scenario": "cold_shock"
     },
     {
       "id": 175,
-      "file": "trajectory_00175.csv",
+      "file": "trajectory_175.csv",
       "length": 286,
       "scenario": "nutrient_depletion"
     },
     {
       "id": 176,
-      "file": "trajectory_00176.csv",
+      "file": "trajectory_176.csv",
       "length": 243,
       "scenario": "heatwave"
     },
     {
       "id": 177,
-      "file": "trajectory_00177.csv",
+      "file": "trajectory_177.csv",
       "length": 147,
       "scenario": "nutrient_depletion"
     },
     {
       "id": 178,
-      "file": "trajectory_00178.csv",
+      "file": "trajectory_178.csv",
       "length": 124,
       "scenario": "normal"
     },
     {
       "id": 179,
-      "file": "trajectory_00179.csv",
+      "file": "trajectory_179.csv",
       "length": 336,
       "scenario": "temp_spike"
     },
     {
       "id": 180,
-      "file": "trajectory_00180.csv",
+      "file": "trajectory_180.csv",
       "length": 303,
       "scenario": "noisy_sensors"
     },
     {
       "id": 181,
-      "file": "trajectory_00181.csv",
+      "file": "trajectory_181.csv",
       "length": 249,
       "scenario": "nutrient_depletion"
     },
     {
       "id": 182,
-      "file": "trajectory_00182.csv",
+      "file": "trajectory_182.csv",
       "length": 164,
       "scenario": "saturation"
     },
     {
       "id": 183,
-      "file": "trajectory_00183.csv",
+      "file": "trajectory_183.csv",
       "length": 336,
       "scenario": "nutrient_depletion"
     },
     {
       "id": 184,
-      "file": "trajectory_00184.csv",
+      "file": "trajectory_184.csv",
       "length": 214,
       "scenario": "sediment"
     },
     {
       "id": 185,
-      "file": "trajectory_00185.csv",
+      "file": "trajectory_185.csv",
       "length": 435,
       "scenario": "actuator_failure"
     },
     {
       "id": 186,
-      "file": "trajectory_00186.csv",
+      "file": "trajectory_186.csv",
       "length": 406,
       "scenario": "normal"
     },
     {
       "id": 187,
-      "file": "trajectory_00187.csv",
+      "file": "trajectory_187.csv",
       "length": 269,
       "scenario": "delayed_response"
     },
     {
       "id": 188,
-      "file": "trajectory_00188.csv",
+      "file": "trajectory_188.csv",
       "length": 396,
       "scenario": "nutrient_depletion"
     },
     {
       "id": 189,
-      "file": "trajectory_00189.csv",
+      "file": "trajectory_189.csv",
       "length": 366,
       "scenario": "delayed_response"
     },
     {
       "id": 190,
-      "file": "trajectory_00190.csv",
+      "file": "trajectory_190.csv",
       "length": 268,
       "scenario": "noisy_sensors"
     },
     {
       "id": 191,
-      "file": "trajectory_00191.csv",
+      "file": "trajectory_191.csv",
       "length": 433,
       "scenario": "nutrient_depletion"
     },
     {
       "id": 192,
-      "file": "trajectory_00192.csv",
+      "file": "trajectory_192.csv",
       "length": 371,
       "scenario": "delayed_response"
     },
     {
       "id": 193,
-      "file": "trajectory_00193.csv",
+      "file": "trajectory_193.csv",
       "length": 223,
       "scenario": "normal"
     },
     {
       "id": 194,
-      "file": "trajectory_00194.csv",
+      "file": "trajectory_194.csv",
       "length": 457,
       "scenario": "ec_drop"
     },
     {
       "id": 195,
-      "file": "trajectory_00195.csv",
+      "file": "trajectory_195.csv",
       "length": 460,
       "scenario": "ec_drop"
     },
     {
       "id": 196,
-      "file": "trajectory_00196.csv",
+      "file": "trajectory_196.csv",
       "length": 365,
       "scenario": "heatwave"
     },
     {
       "id": 197,
-      "file": "trajectory_00197.csv",
+      "file": "trajectory_197.csv",
       "length": 471,
       "scenario": "normal"
     },
     {
       "id": 198,
-      "file": "trajectory_00198.csv",
+      "file": "trajectory_198.csv",
       "length": 351,
       "scenario": "nutrient_depletion"
     },
     {
       "id": 199,
-      "file": "trajectory_00199.csv",
+      "file": "trajectory_199.csv",
       "length": 460,
       "scenario": "normal"
     }
@@ -1204,6 +1204,9 @@
   "config_snapshot": {
     "seed": 42,
     "experiment_name": "algae_dosing_policy_v3",
+    "naming": {
+      "trajectory_index_padding": 3
+    },
     "paths": {
       "raw": "data/raw",
       "synthetic": "data/synthetic",
@@ -1305,7 +1308,14 @@
       "correlated_noise_rho": 0.85
     },
     "labeling": {
-      "horizon_steps": 15,
+      "debug_mode": false,
+      "horizon_steps": 60,
+      "target_band_pct": 0.05,
+      "time_weight_alpha": 2.0,
+      "steady_state_tail_fraction": 0.35,
+      "transient_aggression_tolerance": 1.5,
+      "under_target_cost_relief": 0.65,
+      "max_diagnostic_samples": 8,
       "candidate_flowrates": [
         0.0,
         0.5,
@@ -1329,11 +1339,28 @@
         30.0
       ],
       "weights": {
-        "ec_error": 1.0,
-        "nutrient_cost": 0.3,
-        "instability": 0.5,
-        "overshoot": 0.8
-      }
+        "tracking": 1.4,
+        "recovery": 1.0,
+        "steady_state": 0.8,
+        "stability": 0.25,
+        "oscillation": 0.6,
+        "overshoot": 0.5,
+        "nutrient_cost": 0.2,
+        "action_smoothness": 0.15,
+        "action_rate": 0.1
+      },
+      "overshoot": {
+        "mild_threshold_offset": 0.15,
+        "critical_threshold": 1.7,
+        "mild_weight": 0.35,
+        "severe_weight": 4.0
+      },
+      "action_regularization": {
+        "smoothness_weight": 0.15,
+        "rate_change_weight": 0.1
+      },
+      "collapse_penalty": 8.0,
+      "unsafe_terminal_penalty": 12.0
     },
     "preprocessing": {
       "sequence_length": 32,
@@ -1370,7 +1397,7 @@
       "lr_patience": 5
     },
     "evaluation": {
-      "closed_loop_steps": 500,
+      "closed_loop_steps": 200,
       "pid": {
         "kp": 2.5,
         "ki": 0.08,
@@ -1381,9 +1408,100 @@
         "ec_high_threshold": 1.4
       }
     },
+    "pid_tuning": {
+      "enabled": true,
+      "coarse_search": {
+        "kp_range": [
+          0.1,
+          10.0
+        ],
+        "ki_range": [
+          0.0,
+          1.0
+        ],
+        "kd_range": [
+          0.05,
+          5.0
+        ],
+        "n_kp": 8,
+        "n_ki": 6,
+        "n_kd": 6,
+        "max_evaluations": 72
+      },
+      "refinement": {
+        "top_candidates": 8,
+        "step_kp": 0.35,
+        "step_ki": 0.015,
+        "step_kd": 0.12
+      },
+      "evaluation": {
+        "n_episodes_coarse": 3,
+        "episode_length_coarse": 400,
+        "disturbance_modes_coarse": [
+          "normal",
+          "heatwave"
+        ],
+        "n_episodes": 4,
+        "episode_length": 800,
+        "disturbance_modes": [
+          "normal",
+          "heatwave",
+          "nutrient_depletion"
+        ]
+      },
+      "validation": {
+        "n_episodes": 1,
+        "episode_length": 1500,
+        "long_horizon_length": 2500,
+        "disturbance_modes": [
+          "normal",
+          "heatwave",
+          "cold_shock",
+          "nutrient_depletion",
+          "actuator_failure",
+          "sediment"
+        ],
+        "water_temps": [
+          17.0,
+          22.0,
+          28.0,
+          30.0
+        ],
+        "initial_ecs": [
+          0.85,
+          1.0,
+          1.2,
+          1.35
+        ],
+        "seeds": [
+          42,
+          123,
+          456
+        ]
+      },
+      "weights": {
+        "ec_mae": 1.0,
+        "overshoot": 0.8,
+        "oscillation": 0.5,
+        "nutrient_usage": 0.4,
+        "collapse_penalty": 1.5,
+        "aggressive_control": 0.3,
+        "instability": 0.4,
+        "smoothness": 0.2
+      },
+      "pid_behavior": {
+        "integral_min": -8.0,
+        "integral_max": 8.0,
+        "derivative_alpha": 0.85,
+        "deadband": 0.04,
+        "max_delta_flowrate": 1.5,
+        "max_delta_duration": 8.0
+      }
+    },
     "export": {
       "format": "torchscript"
     }
   },
-  "dynamics_version": "v2_active_equilibrium"
+  "dynamics_version": "v2_active_equilibrium",
+  "trajectory_index_padding": 3
 }

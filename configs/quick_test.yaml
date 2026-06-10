@@ -3,6 +3,9 @@
 seed: 42
 experiment_name: algae_dosing_quick_v3
 
+naming:
+  trajectory_index_padding: 3
+
 paths:
   raw: data/raw
   synthetic: data/synthetic
@@ -57,14 +60,19 @@ disturbances:
   mixing_noise_std: 0.006
 
 labeling:
-  horizon_steps: 10
+  horizon_steps: 40
+  target_band_pct: 0.05
+  time_weight_alpha: 2.0
   candidate_flowrates: [0.0, 1.0, 2.0, 3.0, 4.0, 5.0]
   candidate_durations: [0.0, 10.0, 20.0, 30.0]
   weights:
-    ec_error: 1.0
-    nutrient_cost: 0.3
-    instability: 0.5
-    overshoot: 0.8
+    tracking: 1.4
+    recovery: 1.0
+    steady_state: 0.8
+    stability: 0.25
+    oscillation: 0.6
+    overshoot: 0.5
+    nutrient_cost: 0.2
 
 preprocessing:
   sequence_length: 16

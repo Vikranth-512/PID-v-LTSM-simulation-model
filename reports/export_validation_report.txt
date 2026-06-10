@@ -1,0 +1,6 @@
+Export Validation Report
+========================
+export_torchscript: OK
+max_output_difference: 0.00e+00
+threshold: 1e-5
+status: PASS

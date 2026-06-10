@@ -17,6 +17,7 @@ import pandas as pd
 from simulation.disturbances import DisturbanceConfig, DisturbanceGenerator
 from simulation.dynamics import TankDynamicsParams, TankState
 from simulation.environment import AlgaeTankEnvironment, EnvironmentConfig
+from utils.naming import get_trajectory_index_padding, trajectory_filename
 
 
 class SyntheticTrajectoryGenerator:
@@ -63,6 +64,7 @@ class SyntheticTrajectoryGenerator:
         self.length_min = sim.get("trajectory_length_min", 100)
         self.length_max = sim.get("trajectory_length_max", 500)
         self.num_trajectories = sim.get("num_trajectories", 200)
+        self.trajectory_index_padding = get_trajectory_index_padding(config)
 
     def _random_open_loop_actions(self, length: int) -> List[tuple]:
         """Exploratory actions for state coverage (not optimal labels)."""
@@ -145,11 +147,18 @@ class SyntheticTrajectoryGenerator:
         output_dir.mkdir(parents=True, exist_ok=True)
 
         all_dfs = []
-        meta = {"trajectories": [], "config_snapshot": self.config, "dynamics_version": "v2_active_equilibrium"}
+        meta = {
+            "trajectories": [],
+            "config_snapshot": self.config,
+            "dynamics_version": "v2_active_equilibrium",
+            "trajectory_index_padding": self.trajectory_index_padding,
+        }
 
         for i in range(self.num_trajectories):
             df = self.generate_trajectory(i)
-            path = output_dir / f"trajectory_{i:05d}.csv"
+            path = output_dir / trajectory_filename(
+                i, padding=self.trajectory_index_padding
+            )
             df.to_csv(path, index=False)
             all_dfs.append(df)
             meta["trajectories"].append(

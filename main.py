@@ -32,22 +32,74 @@ from simulation.synthetic_generator import SyntheticTrajectoryGenerator
 from simulation_runner.closed_loop_eval import ClosedLoopEvaluator
 from training.evaluation import compute_prediction_metrics
 from training.train import Trainer
-from utils import ensure_dirs, load_config, save_experiment_metadata, set_seed
+from utils import (
+    ensure_dirs,
+    get_trajectory_index_padding,
+    load_config,
+    list_trajectory_files,
+    save_experiment_metadata,
+    set_seed,
+)
 from simulation.validate_dynamics import run_validation_suite
 from visualization.plots import Plotter
 from controllers.pid_tuner import run_pid_tuning
 
 
 def stage_generate(config: dict, paths: dict) -> Path:
+    padding = get_trajectory_index_padding(config)
     print("=== Stage: Synthetic trajectory generation ===")
+    print(f"  Trajectory filename padding: {padding}")
     gen = SyntheticTrajectoryGenerator(config, seed=config.get("seed", 42))
     return gen.generate_dataset(paths["synthetic"])
 
 
-def stage_label(config: dict, paths: dict) -> Path:
-    print("=== Stage: Optimization-based labeling ===")
+def stage_label(config: dict, paths: dict, with_diagnostics: bool = False) -> Path:
+    padding = get_trajectory_index_padding(config)
+    expected = config.get("simulation", {}).get("num_trajectories", 200)
+    print("=== Stage: Optimization-based labeling (precision regulation) ===")
+    print(f"  Trajectory filename padding: {padding}")
+    print(f"  Expected trajectories: {expected}")
+    lab = config.get("labeling", {})
+    print(f"  horizon_steps={lab.get('horizon_steps', 60)}, mode=option_b")
+    if lab.get("debug_mode", False):
+        print("  debug_mode=ON (verbose cost/candidate logging)")
     labeler = OptimizationLabeler(config)
-    return labeler.label_dataset(paths["synthetic"], paths["processed"])
+    fig_dir = paths["figures"] / "labeling_diagnostics" if with_diagnostics else None
+    combined_path = labeler.label_dataset(
+        paths["synthetic"],
+        paths["processed"],
+        run_diagnostics=with_diagnostics,
+        figures_dir=fig_dir,
+        expected_trajectories=expected,
+    )
+    df = pd.read_csv(combined_path)
+    unique_ids = df["trajectory_id"].nunique()
+    print(f"[LABEL] Dataset validation passed: {unique_ids} unique trajectory IDs")
+    return combined_path
+
+
+def stage_label_diagnostics(config: dict, paths: dict) -> Path:
+    """Re-label a single trajectory with full diagnostic capture + plots."""
+    print("=== Stage: Labeling diagnostics ===")
+    syn = paths["synthetic"]
+    traj_files = list_trajectory_files(syn, labeled=False)
+    if not traj_files:
+        raise FileNotFoundError(f"No trajectories in {syn}; run generate first.")
+    df = pd.read_csv(traj_files[0])
+    labeler = OptimizationLabeler(config)
+    labeler.label_trajectory(df.head(min(80, len(df))), sample_diagnostics=True)
+    fig_dir = paths["figures"] / "labeling_diagnostics"
+    from visualization.labeling_diagnostics import LabelingDiagnosticPlotter
+
+    plotter = LabelingDiagnosticPlotter(fig_dir)
+    plotter.plot_all(labeler.get_diagnostic_samples(), labeler.obj_cfg)
+    out = paths["processed"] / "labeling_diagnostic_samples.json"
+    import json
+
+    with open(out, "w") as f:
+        json.dump(labeler.get_diagnostic_samples(), f, indent=2)
+    print(f"Diagnostics saved: {fig_dir}")
+    return out
 
 
 def stage_preprocess(config: dict, paths: dict) -> dict:
@@ -239,6 +291,7 @@ def main() -> None:
             "validate_dynamics",
             "generate",
             "label",
+            "label_diagnostics",
             "preprocess",
             "train",
             "evaluate",
@@ -271,8 +324,28 @@ def main() -> None:
     if args.stage in ("all", "generate"):
         stage_generate(config, paths)
 
+    label_ok = True
     if args.stage in ("all", "label"):
-        stage_label(config, paths)
+        try:
+            stage_label(
+                config,
+                paths,
+                with_diagnostics=config.get("labeling", {}).get(
+                    "run_diagnostics_on_label", False
+                ),
+            )
+        except Exception as e:
+            label_ok = False
+            print(f"LABELING STAGE FAILED: {e}")
+            if args.stage == "label":
+                raise
+
+    if args.stage == "all" and not label_ok:
+        print("Pipeline finished with labeling errors — not complete.")
+        sys.exit(1)
+
+    if args.stage == "label_diagnostics":
+        stage_label_diagnostics(config, paths)
 
     if args.stage in ("all", "preprocess", "train", "evaluate", "export"):
         preprocessed = stage_preprocess(config, paths)

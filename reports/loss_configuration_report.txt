@@ -1,0 +1,17 @@
+Loss Configuration Report
+=========================
+loss_type: control_aware
+active_class: ControlAwareLoss
+weights: {
+  "action": 1.0,
+  "instability": 0.2,
+  "aggressive_change": 0.15,
+  "excessive_dose": 0.1
+}
+
+Trainer._get_loss_fn source:
+    def _get_loss_fn(self):
+        tcfg = self.config.get("training", {})
+        if tcfg.get("loss_type", "control_aware") == "mse":
+            return lambda p, t, prev=None: mse_loss(p, t)
+        return ControlAwareLoss(weights=tcfg.get("control_loss_weights"))

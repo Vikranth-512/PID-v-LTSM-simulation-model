@@ -1,0 +1,15 @@
+LSTMPolicy Architecture
+=====================
+17 → LSTM(128) → Dropout → LSTM(128) → Dropout → FC(64) → ReLU → FC(2)
+
+LSTMPolicy(
+  (lstm1): LSTM(17, 128, batch_first=True)
+  (dropout1): Dropout(p=0.2, inplace=False)
+  (lstm2): LSTM(128, 128, batch_first=True)
+  (dropout2): Dropout(p=0.2, inplace=False)
+  (fc_hidden): Linear(in_features=128, out_features=64, bias=True)
+  (relu): ReLU()
+  (fc_out): Linear(in_features=64, out_features=2, bias=True)
+)
+
+Trainable parameters: 215746

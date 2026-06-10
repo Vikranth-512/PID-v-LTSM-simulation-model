@@ -70,6 +70,21 @@ The enhanced PID includes anti-windup, derivative filtering, deadband, rate limi
 
 Figures are written to `figures/dynamics_validation/`.
 
+## Labeling — Option B (Precision Regulation)
+
+Pseudo-labels use **long-horizon rollouts** (default 60 steps) and a modular cost:
+
+- Time-weighted tracking + steady-state tail error
+- Recovery time into ±5% target band
+- Separated oscillation vs stability (late-horizon only)
+- Nonlinear overshoot (mild quadratic / severe exponential)
+- Nutrient cost with under-target relief (allows corrective dosing)
+
+```bash
+python main.py --stage label
+python main.py --stage label_diagnostics   # plots → figures/labeling_diagnostics/
+```
+
 ## Architecture
 
 ```

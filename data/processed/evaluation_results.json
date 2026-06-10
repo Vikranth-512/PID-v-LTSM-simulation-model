@@ -1,168 +1,168 @@
 {
   "prediction_metrics": {
-    "rmse": 2.115439055482558,
-    "mae": 1.5582362413406372,
-    "r2": 0.9460417032241821,
-    "rmse_flowrate": 0.49554412913204443,
-    "mae_flowrate": 0.4500229060649872,
-    "rmse_duration": 2.9503553208842854,
-    "mae_duration": 2.6664557456970215
+    "rmse": 3.952531129158293,
+    "mae": 2.6562952995300293,
+    "r2": 0.848738431930542,
+    "rmse_flowrate": 0.9790717883845944,
+    "mae_flowrate": 0.7974774837493896,
+    "rmse_duration": 5.503308601500963,
+    "mae_duration": 4.515107154846191
   },
   "closed_loop": {
     "normal": {
       "pid": {
         "overshoot": 0.0,
         "settling_time": 11940.0,
-        "stability_variance": 0.011854064971175129,
-        "cumulative_dosing_cost": 58.82209820200304,
-        "ec_mae": 0.19625130304369245,
-        "nutrient_efficiency": 0.003336353270388038
+        "stability_variance": 0.004997119816807427,
+        "cumulative_dosing_cost": 139.29738854010526,
+        "ec_mae": 0.3125940633682669,
+        "nutrient_efficiency": 0.002244076966555555
       },
       "rule_based": {
-        "overshoot": 0.0,
+        "overshoot": 0.07825980795962861,
         "settling_time": 11940.0,
-        "stability_variance": 0.005952143283812128,
-        "cumulative_dosing_cost": 49.5,
-        "ec_mae": 0.31238878309022666,
-        "nutrient_efficiency": 0.006310884379380653
+        "stability_variance": 0.009776066235174014,
+        "cumulative_dosing_cost": 91.0,
+        "ec_mae": 0.4092497317234243,
+        "nutrient_efficiency": 0.004497249749738182
       },
       "lstm": {
-        "overshoot": 0.0,
+        "overshoot": 0.06513216799087207,
         "settling_time": 11940.0,
-        "stability_variance": 0.030766458963688997,
-        "cumulative_dosing_cost": 30.558399584125205,
-        "ec_mae": 0.4646994190569805,
-        "nutrient_efficiency": 0.015206928706157067
+        "stability_variance": 0.05884936370495396,
+        "cumulative_dosing_cost": 10.323291325605197,
+        "ec_mae": 1.0133423448779235,
+        "nutrient_efficiency": 0.09816077205955871
       }
     },
     "sensor_noise": {
       "pid": {
         "overshoot": 0.0,
         "settling_time": 11940.0,
-        "stability_variance": 0.016384461072860786,
-        "cumulative_dosing_cost": 81.18380251759316,
-        "ec_mae": 0.3141993288864646,
-        "nutrient_efficiency": 0.0038702218333288014
+        "stability_variance": 0.004489316393471396,
+        "cumulative_dosing_cost": 126.87603271995538,
+        "ec_mae": 0.2917531948612857,
+        "nutrient_efficiency": 0.0022995138349394826
       },
       "rule_based": {
         "overshoot": 0.0,
         "settling_time": 11940.0,
-        "stability_variance": 0.010233604465097232,
-        "cumulative_dosing_cost": 51.0,
-        "ec_mae": 0.3267852228716345,
-        "nutrient_efficiency": 0.006407553264001593
+        "stability_variance": 0.005687052150056644,
+        "cumulative_dosing_cost": 88.83333333333333,
+        "ec_mae": 0.41048542278386163,
+        "nutrient_efficiency": 0.004620848984949486
       },
       "lstm": {
-        "overshoot": 0.03305862584031383,
+        "overshoot": 0.0,
         "settling_time": 11940.0,
-        "stability_variance": 0.07177023562695706,
-        "cumulative_dosing_cost": 26.454514970982146,
-        "ec_mae": 0.4524639668620851,
-        "nutrient_efficiency": 0.017103467980982567
+        "stability_variance": 0.04865579117687599,
+        "cumulative_dosing_cost": 10.286597571200145,
+        "ec_mae": 1.0258488270070898,
+        "nutrient_efficiency": 0.09972672889940559
       }
     },
     "ec_drift": {
       "pid": {
-        "overshoot": 0.028754593751953328,
+        "overshoot": 0.0,
         "settling_time": 11940.0,
-        "stability_variance": 0.014875943286379256,
-        "cumulative_dosing_cost": 91.4443023050178,
-        "ec_mae": 0.26976568185839317,
-        "nutrient_efficiency": 0.0029500545371161507
+        "stability_variance": 0.01157153874845882,
+        "cumulative_dosing_cost": 146.25224335355256,
+        "ec_mae": 0.3189135428154208,
+        "nutrient_efficiency": 0.002180571957887183
       },
       "rule_based": {
         "overshoot": 0.0,
         "settling_time": 11940.0,
-        "stability_variance": 0.015096482578683542,
-        "cumulative_dosing_cost": 90.5,
-        "ec_mae": 0.41870115459124,
-        "nutrient_efficiency": 0.004626532043808928
+        "stability_variance": 0.01403110995019817,
+        "cumulative_dosing_cost": 107.33333333333333,
+        "ec_mae": 0.4264421399138837,
+        "nutrient_efficiency": 0.003973063378330624
       },
       "lstm": {
-        "overshoot": 0.16030447164073425,
+        "overshoot": 0.0229773206077295,
         "settling_time": 11940.0,
-        "stability_variance": 0.045326423084971514,
-        "cumulative_dosing_cost": 43.52908963147288,
-        "ec_mae": 0.5971646919366177,
-        "nutrient_efficiency": 0.013718749536771834
+        "stability_variance": 0.05890681337303226,
+        "cumulative_dosing_cost": 10.08355855367195,
+        "ec_mae": 1.012381513942847,
+        "nutrient_efficiency": 0.100399219993121
       }
     },
     "temp_spike": {
       "pid": {
-        "overshoot": 0.07222767926255447,
+        "overshoot": 0.0,
         "settling_time": 11940.0,
-        "stability_variance": 0.016146507967274935,
-        "cumulative_dosing_cost": 61.97231091132322,
-        "ec_mae": 0.17770661994157436,
-        "nutrient_efficiency": 0.0028675163869286736
+        "stability_variance": 0.006283695873968071,
+        "cumulative_dosing_cost": 134.59739070584942,
+        "ec_mae": 0.3048660563632191,
+        "nutrient_efficiency": 0.0022650220223396056
       },
       "rule_based": {
-        "overshoot": 0.0,
+        "overshoot": 0.024274562893515483,
         "settling_time": 11940.0,
-        "stability_variance": 0.012377342399754836,
-        "cumulative_dosing_cost": 57.83333333333333,
-        "ec_mae": 0.340223375885422,
-        "nutrient_efficiency": 0.005882824841543468
+        "stability_variance": 0.009194156790931083,
+        "cumulative_dosing_cost": 88.33333333333333,
+        "ec_mae": 0.37764225399025136,
+        "nutrient_efficiency": 0.004275195279793088
       },
       "lstm": {
-        "overshoot": 0.0,
+        "overshoot": 0.0880624351878152,
         "settling_time": 11940.0,
-        "stability_variance": 0.01634841127895358,
-        "cumulative_dosing_cost": 22.41063760820272,
-        "ec_mae": 0.496414383509474,
-        "nutrient_efficiency": 0.02215083613582421
+        "stability_variance": 0.05732982708869638,
+        "cumulative_dosing_cost": 10.26723409906225,
+        "ec_mae": 1.0216963052551962,
+        "nutrient_efficiency": 0.09951036431887218
       }
     },
     "delayed_response": {
       "pid": {
-        "overshoot": 0.19343566086168162,
+        "overshoot": 0.0006422895716997612,
         "settling_time": 11940.0,
-        "stability_variance": 0.03051636139784025,
-        "cumulative_dosing_cost": 90.30304905243003,
-        "ec_mae": 0.30486083622818944,
-        "nutrient_efficiency": 0.0033759749648675985
+        "stability_variance": 0.00784539369363779,
+        "cumulative_dosing_cost": 174.07189070640175,
+        "ec_mae": 0.36673642403043516,
+        "nutrient_efficiency": 0.002106810125605982
       },
       "rule_based": {
         "overshoot": 0.0,
         "settling_time": 11940.0,
-        "stability_variance": 0.008989927364263652,
-        "cumulative_dosing_cost": 30.666666666666664,
-        "ec_mae": 0.2512079461315768,
-        "nutrient_efficiency": 0.008191563193696096
+        "stability_variance": 0.00861566129167286,
+        "cumulative_dosing_cost": 107.5,
+        "ec_mae": 0.4763367213842383,
+        "nutrient_efficiency": 0.00443103922747162
       },
       "lstm": {
-        "overshoot": 0.0061809553738800815,
+        "overshoot": 0.0,
         "settling_time": 11940.0,
-        "stability_variance": 0.042229027042296294,
-        "cumulative_dosing_cost": 29.984881695559892,
-        "ec_mae": 0.48069694910256866,
-        "nutrient_efficiency": 0.016031309976535256
+        "stability_variance": 0.05644644918315791,
+        "cumulative_dosing_cost": 10.15936828573783,
+        "ec_mae": 1.013586132186722,
+        "nutrient_efficiency": 0.09976860803845757
       }
     },
     "actuator_saturation": {
       "pid": {
-        "overshoot": 0.09361543762639757,
-        "settling_time": 11940.0,
-        "stability_variance": 0.038458741074105074,
-        "cumulative_dosing_cost": 15.10983462726905,
-        "ec_mae": 0.31067526189647326,
-        "nutrient_efficiency": 0.02056112783489126
-      },
-      "rule_based": {
         "overshoot": 0.0,
         "settling_time": 11940.0,
-        "stability_variance": 0.07316095928791984,
-        "cumulative_dosing_cost": 15.833333333333332,
-        "ec_mae": 0.9564945738939536,
-        "nutrient_efficiency": 0.0604101797989752
+        "stability_variance": 0.05433694650833127,
+        "cumulative_dosing_cost": 16.534743940262146,
+        "ec_mae": 1.0090579907856048,
+        "nutrient_efficiency": 0.06102652290260287
+      },
+      "rule_based": {
+        "overshoot": 0.07210093936855988,
+        "settling_time": 11940.0,
+        "stability_variance": 0.06254069276939635,
+        "cumulative_dosing_cost": 16.0,
+        "ec_mae": 1.0048445674130568,
+        "nutrient_efficiency": 0.0628027815381422
       },
       "lstm": {
-        "overshoot": 0.07080301612710937,
+        "overshoot": 0.09405733423310703,
         "settling_time": 11940.0,
-        "stability_variance": 0.07665586471394387,
-        "cumulative_dosing_cost": 14.694086493608744,
-        "ec_mae": 0.9297427157550515,
-        "nutrient_efficiency": 0.06327325301142021
+        "stability_variance": 0.061509438381607565,
+        "cumulative_dosing_cost": 7.745762477318445,
+        "ec_mae": 1.0141855782733635,
+        "nutrient_efficiency": 0.13093423020766842
       }
     }
   }

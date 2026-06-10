@@ -3,6 +3,9 @@
 seed: 42
 experiment_name: algae_dosing_policy_v3
 
+naming:
+  trajectory_index_padding: 3
+
 paths:
   raw: data/raw
   synthetic: data/synthetic
@@ -100,14 +103,37 @@ disturbances:
   correlated_noise_rho: 0.85
 
 labeling:
-  horizon_steps: 15
+  # Option B — Precision Regulation (long-horizon, tracking-focused labels)
+  debug_mode: false
+  horizon_steps: 60
+  target_band_pct: 0.05
+  time_weight_alpha: 2.0
+  steady_state_tail_fraction: 0.35
+  transient_aggression_tolerance: 1.5
+  under_target_cost_relief: 0.65
+  max_diagnostic_samples: 8
   candidate_flowrates: [0.0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0]
   candidate_durations: [0.0, 5.0, 10.0, 15.0, 20.0, 25.0, 30.0]
   weights:
-    ec_error: 1.0
-    nutrient_cost: 0.3
-    instability: 0.5
-    overshoot: 0.8
+    tracking: 1.4
+    recovery: 1.0
+    steady_state: 0.8
+    stability: 0.25
+    oscillation: 0.6
+    overshoot: 0.5
+    nutrient_cost: 0.2
+    action_smoothness: 0.15
+    action_rate: 0.1
+  overshoot:
+    mild_threshold_offset: 0.15
+    critical_threshold: 1.7
+    mild_weight: 0.35
+    severe_weight: 4.0
+  action_regularization:
+    smoothness_weight: 0.15
+    rate_change_weight: 0.1
+  collapse_penalty: 8.0
+  unsafe_terminal_penalty: 12.0
 
 preprocessing:
   sequence_length: 32
@@ -143,7 +169,7 @@ training:
   lr_patience: 5
 
 evaluation:
-  closed_loop_steps: 500
+  closed_loop_steps: 200
   pid:
     kp: 2.5
     ki: 0.08

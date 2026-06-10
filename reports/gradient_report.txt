@@ -1,0 +1,15 @@
+Gradient Flow Report
+====================
+
+lstm1.weight_ih_l0: mean=-1.805742e-06 std=2.550121e-04 max=2.578090e-03
+lstm1.weight_hh_l0: mean=3.851936e-08 std=2.700143e-05 max=2.915269e-04
+lstm1.bias_ih_l0: mean=-1.747036e-05 std=4.791330e-04 max=2.883166e-03
+lstm1.bias_hh_l0: mean=-1.747036e-05 std=4.791330e-04 max=2.883166e-03
+lstm2.weight_ih_l0: mean=-2.829616e-08 std=1.053283e-04 max=1.258175e-03
+lstm2.weight_hh_l0: mean=2.398329e-07 std=6.675625e-05 max=9.492363e-04
+lstm2.bias_ih_l0: mean=-7.629581e-05 std=1.789242e-03 max=9.582495e-03
+lstm2.bias_hh_l0: mean=-7.629581e-05 std=1.789242e-03 max=9.582495e-03
+fc_hidden.weight: mean=-2.821141e-06 std=6.098742e-04 max=4.858174e-03
+fc_hidden.bias: mean=3.940605e-03 std=1.242754e-02 max=3.484062e-02
+fc_out.weight: mean=1.810047e-03 std=7.013939e-03 max=2.925050e-02
+fc_out.bias: mean=8.411855e-02 std=2.190147e-01 max=2.389853e-01

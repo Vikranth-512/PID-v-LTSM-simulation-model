@@ -1,8 +1,11 @@
 {
-  "timestamp": "2026-05-26T05:11:46.458367+00:00",
+  "timestamp": "2026-06-10T03:41:12.653001+00:00",
   "config": {
     "seed": 42,
-    "experiment_name": "pid_tune_quick",
+    "experiment_name": "algae_dosing_policy_v3",
+    "naming": {
+      "trajectory_index_padding": 3
+    },
     "paths": {
       "raw": "data/raw",
       "synthetic": "data/synthetic",
@@ -14,6 +17,9 @@
     },
     "simulation": {
       "dt_seconds": 60.0,
+      "trajectory_length_min": 100,
+      "trajectory_length_max": 500,
+      "num_trajectories": 200,
       "ec_target": 1.2,
       "ec_safe_min": 0.4,
       "ec_safe_max": 2.5,
@@ -25,15 +31,19 @@
       "noise_std": {
         "water_temp": 0.05,
         "ec": 0.02,
-        "turbidity": 1.0
+        "turbidity": 1.0,
+        "ph": 0.02,
+        "dissolved_oxygen": 0.1
       }
     },
     "dynamics": {
       "ec_healthy_min": 0.75,
+      "ec_instability_threshold": 1.55,
       "ec_soft_limit": 2.2,
       "ec_hard_limit": 3.0,
       "baseline_ec_depletion": 0.0038,
       "biological_uptake_rate": 0.0035,
+      "starvation_acceleration": 0.006,
       "nutrient_to_ec_gain": 0.095,
       "immediate_absorption_fraction": 0.28,
       "delay_kernel": [
@@ -43,79 +53,229 @@
         0.2,
         0.1
       ],
+      "ec_assimilation_tau": 0.18,
+      "max_queue_release_rate": 0.048,
+      "release_damping": 0.85,
+      "ec_spring_stiffness": 0.0,
+      "ec_damping": 0.22,
+      "memory_to_ec_gain": 0.04,
+      "temp_ref": 25.0,
+      "temp_opt": 26.0,
+      "temp_sigma": 5.0,
+      "q10_coefficient": 2.2,
       "temp_coupling_strength": 2.0,
-      "ambient_temp_mean": 22.0
+      "ambient_temp_mean": 22.0,
+      "temp_relaxation_rate": 0.025,
+      "turbidity_temp_exponent": 1.35,
+      "turbidity_carrying_capacity": 220.0,
+      "turbidity_growth_rate": 0.016,
+      "turbidity_mortality_rate": 0.0045,
+      "biomass_memory_alpha": 0.025,
+      "turbidity_growth_lag_tau": 0.06,
+      "turbidity_ec_coupling": 0.25,
+      "turbidity_stochastic_std": 0.4,
+      "algae_sensor_tau": 0.045,
+      "bloom_turbidity_noise": 1.2,
+      "health_lag_tau": 0.035,
+      "nutrient_memory_alpha": 0.06,
+      "nutrient_overshoot_penalty": 0.04,
+      "oscillation_sensitivity": 0.05,
+      "cumulative_nutrient_limit": 50.0,
+      "overshoot_ec_gain": 0.02,
+      "drift_rate": 1e-05
     },
     "disturbances": {
-      "heatwave_prob": 0.02,
-      "mixing_noise_std": 0.006
+      "ec_shock_prob": 0.02,
+      "ec_shock_magnitude": 0.08,
+      "temp_spike_prob": 0.02,
+      "temp_spike_magnitude": 3.0,
+      "heatwave_prob": 0.01,
+      "heatwave_duration": 40,
+      "heatwave_magnitude": 4.0,
+      "cold_shock_prob": 0.01,
+      "cold_shock_magnitude": -3.5,
+      "seasonal_drift_rate": 0.002,
+      "mixing_noise_std": 0.006,
+      "uptake_pulse_prob": 0.025,
+      "uptake_pulse_factor": 1.35,
+      "actuator_failure_prob": 0.01,
+      "actuator_failure_efficiency": 0.35,
+      "nutrient_depletion_prob": 0.02,
+      "nutrient_depletion_magnitude": 0.12,
+      "turbidity_sediment_prob": 0.015,
+      "turbidity_sediment_magnitude": 18.0,
+      "correlated_noise_rho": 0.85
+    },
+    "labeling": {
+      "debug_mode": false,
+      "horizon_steps": 60,
+      "target_band_pct": 0.05,
+      "time_weight_alpha": 2.0,
+      "steady_state_tail_fraction": 0.35,
+      "transient_aggression_tolerance": 1.5,
+      "under_target_cost_relief": 0.65,
+      "max_diagnostic_samples": 8,
+      "candidate_flowrates": [
+        0.0,
+        0.5,
+        1.0,
+        1.5,
+        2.0,
+        2.5,
+        3.0,
+        3.5,
+        4.0,
+        4.5,
+        5.0
+      ],
+      "candidate_durations": [
+        0.0,
+        5.0,
+        10.0,
+        15.0,
+        20.0,
+        25.0,
+        30.0
+      ],
+      "weights": {
+        "tracking": 1.4,
+        "recovery": 1.0,
+        "steady_state": 0.8,
+        "stability": 0.25,
+        "oscillation": 0.6,
+        "overshoot": 0.5,
+        "nutrient_cost": 0.2,
+        "action_smoothness": 0.15,
+        "action_rate": 0.1
+      },
+      "overshoot": {
+        "mild_threshold_offset": 0.15,
+        "critical_threshold": 1.7,
+        "mild_weight": 0.35,
+        "severe_weight": 4.0
+      },
+      "action_regularization": {
+        "smoothness_weight": 0.15,
+        "rate_change_weight": 0.1
+      },
+      "collapse_penalty": 8.0,
+      "unsafe_terminal_penalty": 12.0
+    },
+    "preprocessing": {
+      "sequence_length": 32,
+      "prediction_horizon": 1,
+      "train_ratio": 0.7,
+      "val_ratio": 0.15,
+      "test_ratio": 0.15,
+      "scaler_type": "standard",
+      "rolling_window": 8
+    },
+    "model": {
+      "input_size": null,
+      "hidden_size": 128,
+      "num_layers": 2,
+      "dropout": 0.2,
+      "output_size": 2
+    },
+    "training": {
+      "batch_size": 64,
+      "epochs": 80,
+      "learning_rate": 0.001,
+      "weight_decay": 1e-05,
+      "grad_clip": 1.0,
+      "loss_type": "control_aware",
+      "control_loss_weights": {
+        "action": 1.0,
+        "instability": 0.2,
+        "aggressive_change": 0.15,
+        "excessive_dose": 0.1
+      },
+      "early_stopping_patience": 12,
+      "lr_scheduler": "reduce_on_plateau",
+      "lr_factor": 0.5,
+      "lr_patience": 5
     },
     "evaluation": {
-      "closed_loop_steps": 500,
+      "closed_loop_steps": 200,
       "pid": {
         "kp": 2.5,
         "ki": 0.08,
         "kd": 0.4
+      },
+      "rule_based": {
+        "ec_low_threshold": 0.9,
+        "ec_high_threshold": 1.4
       }
     },
     "pid_tuning": {
       "enabled": true,
       "coarse_search": {
         "kp_range": [
-          0.5,
-          6.0
+          0.1,
+          10.0
         ],
         "ki_range": [
           0.0,
-          0.5
+          1.0
         ],
         "kd_range": [
-          0.1,
-          3.0
+          0.05,
+          5.0
         ],
-        "n_kp": 5,
-        "n_ki": 4,
-        "n_kd": 4,
-        "max_evaluations": 24
+        "n_kp": 8,
+        "n_ki": 6,
+        "n_kd": 6,
+        "max_evaluations": 72
       },
       "refinement": {
-        "top_candidates": 3,
-        "step_kp": 0.5,
-        "step_ki": 0.03,
-        "step_kd": 0.2
+        "top_candidates": 8,
+        "step_kp": 0.35,
+        "step_ki": 0.015,
+        "step_kd": 0.12
       },
       "evaluation": {
-        "n_episodes_coarse": 2,
-        "episode_length_coarse": 250,
+        "n_episodes_coarse": 3,
+        "episode_length_coarse": 400,
         "disturbance_modes_coarse": [
-          "normal"
-        ],
-        "n_episodes": 2,
-        "episode_length": 400,
-        "disturbance_modes": [
           "normal",
           "heatwave"
-        ]
-      },
-      "validation": {
-        "episode_length": 600,
-        "long_horizon_length": 1000,
+        ],
+        "n_episodes": 4,
+        "episode_length": 800,
         "disturbance_modes": [
           "normal",
           "heatwave",
           "nutrient_depletion"
+        ]
+      },
+      "validation": {
+        "n_episodes": 1,
+        "episode_length": 1500,
+        "long_horizon_length": 2500,
+        "disturbance_modes": [
+          "normal",
+          "heatwave",
+          "cold_shock",
+          "nutrient_depletion",
+          "actuator_failure",
+          "sediment"
         ],
         "water_temps": [
-          18.0,
-          26.0
+          17.0,
+          22.0,
+          28.0,
+          30.0
         ],
         "initial_ecs": [
+          0.85,
           1.0,
-          1.2
+          1.2,
+          1.35
         ],
         "seeds": [
           42,
-          123
+          123,
+          456
         ]
       },
       "weights": {
@@ -124,9 +284,22 @@
         "oscillation": 0.5,
         "nutrient_usage": 0.4,
         "collapse_penalty": 1.5,
-        "aggressive_control": 0.3
+        "aggressive_control": 0.3,
+        "instability": 0.4,
+        "smoothness": 0.2
+      },
+      "pid_behavior": {
+        "integral_min": -8.0,
+        "integral_max": 8.0,
+        "derivative_alpha": 0.85,
+        "deadband": 0.04,
+        "max_delta_flowrate": 1.5,
+        "max_delta_duration": 8.0
       }
+    },
+    "export": {
+      "format": "torchscript"
     }
   },
-  "stage": "tune_pid"
+  "stage": "export"
 }
