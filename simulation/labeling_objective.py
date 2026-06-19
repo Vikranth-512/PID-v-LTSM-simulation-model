@@ -78,6 +78,7 @@ class LabelingObjectiveConfig:
 
     collapse_penalty: float = 8.0
     unsafe_terminal_penalty: float = 12.0
+    disable_collapse_penalty: bool = False
     debug_mode: bool = False
 
     @classmethod
@@ -120,6 +121,7 @@ class LabelingObjectiveConfig:
             severe_overshoot_weight=os_cfg.get("severe_weight", 4.0),
             collapse_penalty=labeling.get("collapse_penalty", 8.0),
             unsafe_terminal_penalty=labeling.get("unsafe_terminal_penalty", 12.0),
+            disable_collapse_penalty=bool(labeling.get("disable_collapse_penalty", False)),
             debug_mode=bool(labeling.get("debug_mode", False)),
         )
 
@@ -301,7 +303,7 @@ def _safety_penalties(
     pen = 0.0
     if final_state.ec > cfg.ec_safe_max or final_state.ec < cfg.ec_safe_min:
         pen += cfg.unsafe_terminal_penalty
-    if final_state.ec < cfg.ec_healthy_min:
+    if not cfg.disable_collapse_penalty and final_state.ec < cfg.ec_healthy_min:
         pen += cfg.collapse_penalty * (cfg.ec_healthy_min - final_state.ec)
     if np.any(ec_trace > cfg.critical_threshold + 0.2):
         pen += 2.0

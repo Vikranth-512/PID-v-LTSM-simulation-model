@@ -65,6 +65,8 @@ class OptimizationLabeler:
         self.flowrate_max = sim.get("flowrate_max", 5.0)
         self.duration_max = sim.get("duration_max", 30.0)
         self.min_time_between_doses = sim.get("min_time_between_doses", 120.0)
+        self.rollout_mode = lab.get("rollout_mode", "impulse")
+        self.tie_break_epsilon = float(lab.get("tie_break_epsilon", 0.0))
 
         self.base_params = TankDynamicsParams.from_config(
             dyn, ec_target=self.ec_target
@@ -126,9 +128,15 @@ class OptimizationLabeler:
     ) -> Tuple[Optional[np.ndarray], Optional[TankState]]:
         ec_trace: List[float] = []
         s = state
+        periodic = self.rollout_mode == "periodic_repeat"
         for k in range(self.horizon):
-            fr = flowrate if k == 0 else 0.0
-            dur = duration if k == 0 else 0.0
+            if periodic:
+                can_dose = s.time_since_last_dose >= self.min_time_between_doses
+                fr = flowrate if can_dose and flowrate > 0 and duration > 0 else 0.0
+                dur = duration if can_dose and flowrate > 0 and duration > 0 else 0.0
+            else:
+                fr = flowrate if k == 0 else 0.0
+                dur = duration if k == 0 else 0.0
             s = step_dynamics(s, fr, dur, self.dt, params)
             if not self._state_finite(s):
                 if self.debug_mode:
@@ -226,6 +234,15 @@ class OptimizationLabeler:
                     best_score = sc
                     best_fr, best_dur = fr, dur
                     best_bd, best_trace = bd, trace
+
+        if self.tie_break_epsilon > 0 and candidate_results:
+            threshold = best_score * (1.0 + self.tie_break_epsilon)
+            tied = [c for c in candidate_results if c["score"] <= threshold]
+            if tied:
+                pick = min(tied, key=lambda c: c["flowrate"] * c["duration"])
+                best_fr = pick["flowrate"]
+                best_dur = pick["duration"]
+                best_score = pick["score"]
 
         if not any_valid or not np.isfinite(best_score):
             best_fr, best_dur, best_score = 0.0, 0.0, _ROLLOUT_PENALTY

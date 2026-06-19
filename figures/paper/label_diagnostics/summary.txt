@@ -1,0 +1,170 @@
+
+STATE 0
+Initial EC = 0.1345
+Top 10 Actions:
+Flow= 0.0 Dur= 0.0 Score=500000.000000
+Flow= 0.0 Dur= 5.0 Score=1000000.000000
+Flow= 0.0 Dur=10.0 Score=1000000.000000
+Flow= 0.0 Dur=15.0 Score=1000000.000000
+Flow= 0.0 Dur=20.0 Score=1000000.000000
+Flow= 0.0 Dur=25.0 Score=1000000.000000
+Flow= 0.0 Dur=30.0 Score=1000000.000000
+Flow= 0.5 Dur= 0.0 Score=1000000.000000
+Flow= 0.5 Dur= 5.0 Score=1000000.000000
+Flow= 0.5 Dur=10.0 Score=1000000.000000
+Best Score=500000.000000
+Second Score=1000000.000000
+Ratio=2.000
+
+STATE 1
+Initial EC = 0.9893
+Top 10 Actions:
+Flow= 3.5 Dur=25.0 Score=1.595791
+Flow= 3.0 Dur=30.0 Score=1.620425
+Flow= 4.5 Dur=20.0 Score=1.621925
+Flow= 4.0 Dur=25.0 Score=1.656591
+Flow= 5.0 Dur=20.0 Score=1.658091
+Flow= 4.0 Dur=20.0 Score=1.730806
+Flow= 2.5 Dur=30.0 Score=1.899571
+Flow= 3.0 Dur=25.0 Score=1.899571
+Flow= 5.0 Dur=15.0 Score=1.902571
+Flow= 3.5 Dur=30.0 Score=2.911765
+Best Score=1.595791
+Second Score=1.620425
+Ratio=1.015
+
+STATE 2
+Initial EC = 0.2097
+Top 10 Actions:
+Flow= 0.0 Dur= 0.0 Score=500000.000000
+Flow= 0.0 Dur= 5.0 Score=1000000.000000
+Flow= 0.0 Dur=10.0 Score=1000000.000000
+Flow= 0.0 Dur=15.0 Score=1000000.000000
+Flow= 0.0 Dur=20.0 Score=1000000.000000
+Flow= 0.0 Dur=25.0 Score=1000000.000000
+Flow= 0.0 Dur=30.0 Score=1000000.000000
+Flow= 0.5 Dur= 0.0 Score=1000000.000000
+Flow= 0.5 Dur= 5.0 Score=1000000.000000
+Flow= 0.5 Dur=10.0 Score=1000000.000000
+Best Score=500000.000000
+Second Score=1000000.000000
+Ratio=2.000
+
+STATE 3
+Initial EC = 0.6932
+Top 10 Actions:
+Flow= 4.5 Dur=30.0 Score=1.922128
+Flow= 5.0 Dur=25.0 Score=1.934915
+Flow= 5.0 Dur=30.0 Score=1.964138
+Flow= 4.0 Dur=30.0 Score=2.019367
+Flow= 4.5 Dur=25.0 Score=2.155338
+Flow= 3.5 Dur=30.0 Score=2.361831
+Flow= 4.0 Dur=25.0 Score=3.714793
+Flow= 5.0 Dur=20.0 Score=3.716293
+Flow= 3.0 Dur=30.0 Score=3.827579
+Flow= 4.5 Dur=20.0 Score=3.829079
+Best Score=1.922128
+Second Score=1.934915
+Ratio=1.007
+
+STATE 4
+Initial EC = 0.1007
+Top 10 Actions:
+Flow= 5.0 Dur=30.0 Score=2.722077
+Flow= 4.5 Dur=30.0 Score=2.956943
+Flow= 5.0 Dur=25.0 Score=3.203768
+Flow= 4.0 Dur=30.0 Score=4.515767
+Flow= 4.5 Dur=25.0 Score=4.645556
+Flow= 3.5 Dur=30.0 Score=4.786421
+Flow= 4.0 Dur=25.0 Score=4.889002
+Flow= 5.0 Dur=20.0 Score=4.890502
+Flow= 3.0 Dur=30.0 Score=5.134336
+Flow= 4.5 Dur=20.0 Score=5.135836
+Best Score=2.722077
+Second Score=2.956943
+Ratio=1.086
+
+STATE 5
+Initial EC = 0.4043
+Top 10 Actions:
+Flow= 0.0 Dur= 0.0 Score=19.807335
+Flow= 0.0 Dur= 5.0 Score=1000000.000000
+Flow= 0.0 Dur=10.0 Score=1000000.000000
+Flow= 0.0 Dur=15.0 Score=1000000.000000
+Flow= 0.0 Dur=20.0 Score=1000000.000000
+Flow= 0.0 Dur=25.0 Score=1000000.000000
+Flow= 0.0 Dur=30.0 Score=1000000.000000
+Flow= 0.5 Dur= 0.0 Score=1000000.000000
+Flow= 0.5 Dur= 5.0 Score=1000000.000000
+Flow= 0.5 Dur=10.0 Score=1000000.000000
+Best Score=19.807335
+Second Score=1000000.000000
+Ratio=50486.347
+
+STATE 6
+Initial EC = 0.7877
+Top 10 Actions:
+Flow= 5.0 Dur=25.0 Score=1.786687
+Flow= 4.0 Dur=30.0 Score=1.805567
+Flow= 4.5 Dur=30.0 Score=1.821651
+Flow= 4.5 Dur=25.0 Score=1.927302
+Flow= 3.5 Dur=30.0 Score=2.096923
+Flow= 4.0 Dur=25.0 Score=2.225923
+Flow= 5.0 Dur=20.0 Score=2.227423
+Flow= 5.0 Dur=30.0 Score=3.084126
+Flow= 3.0 Dur=30.0 Score=3.666502
+Flow= 4.5 Dur=20.0 Score=3.668002
+Best Score=1.786687
+Second Score=1.805567
+Ratio=1.011
+
+STATE 7
+Initial EC = 0.8573
+Top 10 Actions:
+Flow= 3.5 Dur=20.0 Score=1.716783
+Flow= 2.5 Dur=30.0 Score=1.744175
+Flow= 3.0 Dur=25.0 Score=1.744175
+Flow= 4.5 Dur=15.0 Score=1.745975
+Flow= 5.0 Dur=15.0 Score=1.747175
+Flow= 2.5 Dur=25.0 Score=1.864336
+Flow= 2.0 Dur=30.0 Score=1.950809
+Flow= 3.0 Dur=20.0 Score=1.950809
+Flow= 4.0 Dur=15.0 Score=1.952309
+Flow= 4.0 Dur=20.0 Score=2.938391
+Best Score=1.716783
+Second Score=1.744175
+Ratio=1.016
+
+STATE 8
+Initial EC = 0.6845
+Top 10 Actions:
+Flow= 0.0 Dur= 0.0 Score=18.555110
+Flow= 0.0 Dur= 5.0 Score=1000000.000000
+Flow= 0.0 Dur=10.0 Score=1000000.000000
+Flow= 0.0 Dur=15.0 Score=1000000.000000
+Flow= 0.0 Dur=20.0 Score=1000000.000000
+Flow= 0.0 Dur=25.0 Score=1000000.000000
+Flow= 0.0 Dur=30.0 Score=1000000.000000
+Flow= 0.5 Dur= 0.0 Score=1000000.000000
+Flow= 0.5 Dur= 5.0 Score=1000000.000000
+Flow= 0.5 Dur=10.0 Score=1000000.000000
+Best Score=18.555110
+Second Score=1000000.000000
+Ratio=53893.508
+
+STATE 9
+Initial EC = 0.7941
+Top 10 Actions:
+Flow= 4.0 Dur=20.0 Score=1.732105
+Flow= 2.5 Dur=30.0 Score=1.751227
+Flow= 3.0 Dur=25.0 Score=1.751227
+Flow= 5.0 Dur=15.0 Score=1.754227
+Flow= 3.5 Dur=25.0 Score=1.784371
+Flow= 3.0 Dur=30.0 Score=1.813217
+Flow= 4.5 Dur=20.0 Score=1.814717
+Flow= 3.5 Dur=20.0 Score=1.904282
+Flow= 4.5 Dur=15.0 Score=1.985415
+Flow= 4.0 Dur=25.0 Score=3.023487
+Best Score=1.732105
+Second Score=1.751227
+Ratio=1.011
