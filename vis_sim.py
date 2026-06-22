@@ -1,59 +1,100 @@
-import os
-import glob
-import random
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
+from pathlib import Path
 
-DATA_DIR = "data/synthetic"
+OUTPUT_DIR = Path("figures/paper/label_diagnostics")
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-csv_files = glob.glob(os.path.join(DATA_DIR, "*.csv"))
+df = pd.read_csv(
+    "data/processed/all_trajectories_labeled.csv"
+)
 
-if len(csv_files) < 5:
-    raise ValueError("Need at least 5 trajectory CSV files.")
+EC_TARGET = 1.2
 
-selected_files = random.sample(csv_files, 5)
+# Consistent with feature engineering
+df["ec_error"] = EC_TARGET - df["ec"]
 
-fig, axes = plt.subplots(5, 4, figsize=(22, 18))
+fig, axes = plt.subplots(
+    1,
+    2,
+    figsize=(14, 6),
+    constrained_layout=True
+)
 
-for row_idx, file_path in enumerate(selected_files):
-    df = pd.read_csv(file_path)
+# --------------------------------------------------
+# Plot 1: EC Error vs Optimal Flowrate
+# --------------------------------------------------
 
-    time_col = "timestamp" if "timestamp" in df.columns else df.index
+axes[0].scatter(
+    df["ec_error"],
+    df["optimal_flowrate"],
+    alpha=0.08,
+    s=8
+)
 
-    ec_col = "ec" if "ec" in df.columns else "true_ec"
-    temp_col = "water_temp" if "water_temp" in df.columns else "true_water_temp"
-    turb_col = "turbidity" if "turbidity" in df.columns else "true_turbidity"
+axes[0].axvline(
+    0,
+    linestyle="--",
+    linewidth=1
+)
 
-    if "optimal_flowrate" in df.columns:
-        flow_col = "optimal_flowrate"
-    elif "prev_flowrate" in df.columns:
-        flow_col = "prev_flowrate"
-    else:
-        raise ValueError(f"No flowrate column found in {file_path}")
+axes[0].set_title(
+    "Expert Flowrate Selection vs EC Error",
+    fontsize=13,
+    weight="bold"
+)
 
-    # EC
-    axes[row_idx, 0].plot(time_col, df[ec_col])
-    axes[row_idx, 0].set_title(f"Trajectory {row_idx+1} - EC")
-    axes[row_idx, 0].set_xlabel("Time")
-    axes[row_idx, 0].set_ylabel("EC")
+axes[0].set_xlabel(
+    "EC Error (Target - Current EC)"
+)
 
-    # Temperature
-    axes[row_idx, 1].plot(time_col, df[temp_col])
-    axes[row_idx, 1].set_title(f"Trajectory {row_idx+1} - Temp")
-    axes[row_idx, 1].set_xlabel("Time")
-    axes[row_idx, 1].set_ylabel("Temp")
+axes[0].set_ylabel(
+    "Optimal Flowrate"
+)
 
-    # Turbidity
-    axes[row_idx, 2].plot(time_col, df[turb_col])
-    axes[row_idx, 2].set_title(f"Trajectory {row_idx+1} - Turbidity")
-    axes[row_idx, 2].set_xlabel("Time")
-    axes[row_idx, 2].set_ylabel("Turbidity")
+axes[0].grid(alpha=0.3)
 
-    # Flowrate
-    axes[row_idx, 3].plot(time_col, df[flow_col])
-    axes[row_idx, 3].set_title(f"Trajectory {row_idx+1} - Flowrate")
-    axes[row_idx, 3].set_xlabel("Time")
-    axes[row_idx, 3].set_ylabel("Flowrate")
+# --------------------------------------------------
+# Plot 2: EC Error vs Optimal Duration
+# --------------------------------------------------
 
-plt.tight_layout()
-plt.show()
+axes[1].scatter(
+    df["ec_error"],
+    df["optimal_duration"],
+    alpha=0.08,
+    s=8
+)
+
+axes[1].axvline(
+    0,
+    linestyle="--",
+    linewidth=1
+)
+
+axes[1].set_title(
+    "Expert Duration Selection vs EC Error",
+    fontsize=13,
+    weight="bold"
+)
+
+axes[1].set_xlabel(
+    "EC Error (Target - Current EC)"
+)
+
+axes[1].set_ylabel(
+    "Optimal Duration"
+)
+
+axes[1].grid(alpha=0.3)
+
+plt.savefig(
+    OUTPUT_DIR / "ec_error_vs_expert_actions.png",
+    dpi=300,
+    bbox_inches="tight"
+)
+
+plt.close()
+
+print("Saved:")
+print(OUTPUT_DIR / "ec_error_vs_expert_actions.png")

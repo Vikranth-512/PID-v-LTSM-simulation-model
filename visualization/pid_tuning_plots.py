@@ -27,15 +27,20 @@ class PIDTuningPlotter:
         ki = np.array([c["ki"] for c in coarse])
         kd = np.array([c["kd"] for c in coarse])
         sc = np.array([c["score"] for c in coarse])
+        finite = np.isfinite(sc)
+        if np.any(finite):
+            plot_sc = np.where(finite, sc, np.nanmax(sc[finite]) * 1.5)
+        else:
+            plot_sc = sc
 
         fig, axes = plt.subplots(1, 2, figsize=(12, 5))
-        sc1 = axes[0].scatter(kp, ki, c=sc, cmap="viridis_r", s=40, alpha=0.85)
+        sc1 = axes[0].scatter(kp, ki, c=plot_sc, cmap="viridis_r", s=40, alpha=0.85)
         axes[0].set_xlabel("Kp")
         axes[0].set_ylabel("Ki")
         axes[0].set_title("Score landscape: Kp vs Ki")
         plt.colorbar(sc1, ax=axes[0], label="Composite score")
 
-        sc2 = axes[1].scatter(kp, kd, c=sc, cmap="viridis_r", s=40, alpha=0.85)
+        sc2 = axes[1].scatter(kp, kd, c=plot_sc, cmap="viridis_r", s=40, alpha=0.85)
         axes[1].set_xlabel("Kp")
         axes[1].set_ylabel("Kd")
         axes[1].set_title("Score landscape: Kp vs Kd")

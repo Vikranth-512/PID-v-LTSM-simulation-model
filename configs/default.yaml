@@ -186,7 +186,7 @@ pid_tuning:
   enabled: true
   coarse_search:
     kp_range: [0.1, 10.0]
-    ki_range: [0.0, 1.0]
+    ki_range: [0.05, 0.30]
     kd_range: [0.05, 5.0]
     n_kp: 8
     n_ki: 6
@@ -199,15 +199,15 @@ pid_tuning:
     step_kd: 0.12
   evaluation:
     n_episodes_coarse: 3
-    episode_length_coarse: 400
+    episode_length_coarse: 1200
     disturbance_modes_coarse: [normal, heatwave]
     n_episodes: 4
-    episode_length: 800
+    episode_length: 2500
     disturbance_modes: [normal, heatwave, nutrient_depletion]
   validation:
     n_episodes: 1
-    episode_length: 1500
-    long_horizon_length: 2500
+    episode_length: 2500
+    long_horizon_length: 3500
     disturbance_modes:
       - normal
       - heatwave
@@ -218,6 +218,19 @@ pid_tuning:
     water_temps: [17.0, 22.0, 28.0, 30.0]
     initial_ecs: [0.85, 1.0, 1.2, 1.35]
     seeds: [42, 123, 456]
+  regulatory_constraints:
+    max_ec_mae: 0.08
+    max_steady_state_error: 0.05
+    min_time_in_band: 0.90
+    max_collapse_fraction: 0.0
+    reject_settling_timeout: true
+    target_band_pct: 0.05
+    settling_band: 0.08
+    steady_state_tail_fraction: 0.35
+  efficiency_weights:
+    nutrient_usage: 0.4
+    smoothness: 0.2
+    aggressive_control: 0.3
   weights:
     ec_mae: 1.0
     overshoot: 0.8

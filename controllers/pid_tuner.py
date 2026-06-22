@@ -27,12 +27,16 @@ class EpisodeMetrics:
     ec_mae: float = 0.0
     overshoot: float = 0.0
     settling_time: float = 0.0
+    steady_state_error: float = 0.0
+    time_in_band: float = 0.0
     oscillation_amplitude: float = 0.0
     nutrient_usage: float = 0.0
     actuator_aggressiveness: float = 0.0
     collapse_fraction: float = 0.0
     instability_penalty: float = 0.0
     control_smoothness: float = 0.0
+    regulatory_feasible: bool = False
+    efficiency_score: float = 0.0
     score: float = 0.0
 
     def to_dict(self) -> dict:
@@ -61,18 +65,65 @@ def _settling_time(ec: np.ndarray, target: float, dt: float, band: float = 0.08)
     return float(len(ec) * dt)
 
 
-def _composite_score(metrics: EpisodeMetrics, weights: Dict[str, float]) -> float:
-    collapse_penalty = metrics.collapse_fraction * 2.0
+def _regulatory_constraints(config: Dict[str, Any]) -> Dict[str, float]:
+    """Hard regulatory thresholds — tuning rejects candidates that violate any limit."""
+    rc = config.get("regulatory_constraints", {})
+    return {
+        "max_ec_mae": rc.get("max_ec_mae", 0.08),
+        "max_steady_state_error": rc.get("max_steady_state_error", 0.05),
+        "min_time_in_band": rc.get("min_time_in_band", 0.90),
+        "max_collapse_fraction": rc.get("max_collapse_fraction", 0.0),
+        "reject_settling_timeout": rc.get("reject_settling_timeout", True),
+        "target_band_pct": rc.get("target_band_pct", 0.05),
+        "settling_band": rc.get("settling_band", 0.08),
+        "steady_state_tail_fraction": rc.get("steady_state_tail_fraction", 0.35),
+    }
+
+
+def _passes_regulatory_constraints(
+    metrics: EpisodeMetrics,
+    constraints: Dict[str, float],
+    horizon_seconds: float,
+) -> bool:
+    """Stage 1: candidate must regulate EC before efficiency is considered."""
+    if metrics.ec_mae > constraints["max_ec_mae"]:
+        return False
+    if abs(metrics.steady_state_error) > constraints["max_steady_state_error"]:
+        return False
+    if metrics.time_in_band < constraints["min_time_in_band"]:
+        return False
+    if metrics.collapse_fraction > constraints["max_collapse_fraction"]:
+        return False
+    if constraints["reject_settling_timeout"] and metrics.settling_time >= horizon_seconds - 1e-6:
+        return False
+    return True
+
+
+def _efficiency_score(metrics: EpisodeMetrics, weights: Dict[str, float]) -> float:
+    """Stage 2: among valid regulators, minimize resource use and control effort."""
     return (
-        weights.get("ec_mae", 1.0) * metrics.ec_mae
-        + weights.get("overshoot", 0.8) * metrics.overshoot
-        + weights.get("oscillation", 0.5) * metrics.oscillation_amplitude
-        + weights.get("nutrient_usage", 0.4) * metrics.nutrient_usage * 0.01
-        + weights.get("collapse_penalty", 1.5) * collapse_penalty
-        + weights.get("aggressive_control", 0.3) * metrics.actuator_aggressiveness
-        + weights.get("instability", 0.4) * metrics.instability_penalty
+        weights.get("nutrient_usage", 0.4) * metrics.nutrient_usage * 0.01
         + weights.get("smoothness", 0.2) * metrics.control_smoothness
+        + weights.get("aggressive_control", 0.3) * metrics.actuator_aggressiveness
     )
+
+
+def _candidate_score(
+    metrics: EpisodeMetrics,
+    tune_cfg: Dict[str, Any],
+    horizon_seconds: float,
+) -> Tuple[float, bool, float]:
+    """
+    Two-stage score: regulatory feasibility gate, then efficiency objective.
+    Returns (score, regulatory_feasible, efficiency_score).
+    """
+    constraints = _regulatory_constraints(tune_cfg)
+    feasible = _passes_regulatory_constraints(metrics, constraints, horizon_seconds)
+    if not feasible:
+        return float("inf"), False, float("inf")
+    eff_weights = tune_cfg.get("efficiency_weights", tune_cfg.get("weights", {}))
+    eff = _efficiency_score(metrics, eff_weights)
+    return eff, True, eff
 
 
 def _metrics_from_trace(
@@ -82,13 +133,23 @@ def _metrics_from_trace(
     target: float,
     dt: float,
     ec_safe_min: float,
-    weights: Dict[str, float],
+    tune_cfg: Dict[str, Any],
 ) -> EpisodeMetrics:
+    constraints = _regulatory_constraints(tune_cfg)
+    band = constraints["target_band_pct"] * target
+    horizon_seconds = float(len(ec) * dt)
+
     errors = ec - target
     ec_mae = float(np.mean(np.abs(errors)))
     overshoot = float(np.max(np.maximum(0.0, ec - target)))
-    settling = _settling_time(ec, target, dt)
-    tail = ec[-max(20, len(ec) // 10) :]
+    settling = _settling_time(
+        ec, target, dt, band=constraints["settling_band"]
+    )
+    tail_n = max(20, int(len(ec) * constraints["steady_state_tail_fraction"]))
+    tail = ec[-tail_n:]
+    tail_errors = tail - target
+    steady_state_error = float(np.mean(target - tail))
+    time_in_band = float(np.mean(np.abs(tail_errors) < band))
     oscillation = float(np.std(tail) + 0.5 * (np.max(tail) - np.min(tail)))
     nutrient = float(np.sum(flowrate * duration / 60.0))
     d_fr = np.diff(flowrate, prepend=flowrate[0])
@@ -101,6 +162,8 @@ def _metrics_from_trace(
         ec_mae=ec_mae,
         overshoot=overshoot,
         settling_time=settling,
+        steady_state_error=steady_state_error,
+        time_in_band=time_in_band,
         oscillation_amplitude=oscillation,
         nutrient_usage=nutrient,
         actuator_aggressiveness=aggressiveness,
@@ -108,7 +171,10 @@ def _metrics_from_trace(
         instability_penalty=instability,
         control_smoothness=smoothness,
     )
-    m.score = _composite_score(m, weights)
+    score, feasible, eff = _candidate_score(m, tune_cfg, horizon_seconds)
+    m.regulatory_feasible = feasible
+    m.efficiency_score = eff
+    m.score = score
     return m
 
 
@@ -131,7 +197,6 @@ def evaluate_pid(
     sim = config.get("simulation", {})
     dyn = config.get("dynamics", {})
     tune = config.get("pid_tuning", {})
-    weights = tune.get("weights", {})
     ec_target = sim.get("ec_target", 1.2)
     dt = sim.get("dt_seconds", 60.0)
 
@@ -159,14 +224,18 @@ def evaluate_pid(
             "ec_mae",
             "overshoot",
             "settling_time",
+            "steady_state_error",
+            "time_in_band",
             "oscillation_amplitude",
             "nutrient_usage",
             "actuator_aggressiveness",
             "collapse_fraction",
             "instability_penalty",
             "control_smoothness",
+            "efficiency_score",
         ]
     }
+    regulatory_pass: List[bool] = []
     last_trace = None
 
     for ep in range(n_episodes):
@@ -208,17 +277,23 @@ def evaluate_pid(
         fr_arr = np.array(fr_h)
         dur_arr = np.array(dur_h)
         m = _metrics_from_trace(
-            ec_arr, fr_arr, dur_arr, ec_target, dt, env_cfg.ec_safe_min, weights
+            ec_arr, fr_arr, dur_arr, ec_target, dt, env_cfg.ec_safe_min, tune
         )
         episode_scores.append(m.score)
+        regulatory_pass.append(m.regulatory_feasible)
         for k in agg:
             agg[k].append(getattr(m, k))
         if return_traces and ep == n_episodes - 1:
             last_trace = {"ec": ec_arr, "flowrate": fr_arr, "duration": dur_arr, "target": ec_target, "dt": dt}
 
-    mean_score = float(np.mean(episode_scores))
+    if not all(regulatory_pass):
+        mean_score = float("inf")
+    else:
+        mean_score = float(np.mean(episode_scores))
     mean_metrics = {k: float(np.mean(v)) for k, v in agg.items()}
     mean_metrics["score_std"] = float(np.std(episode_scores))
+    mean_metrics["regulatory_feasible"] = all(regulatory_pass)
+    mean_metrics["score"] = mean_score
     if return_traces:
         return mean_score, mean_metrics, last_trace
     return mean_score, mean_metrics, None
@@ -248,7 +323,7 @@ class PIDTuner:
     def _coarse_candidates(self) -> List[Tuple[float, float, float]]:
         cs = self.tune_cfg.get("coarse_search", {})
         kp_r = cs.get("kp_range", [0.1, 10.0])
-        ki_r = cs.get("ki_range", [0.0, 1.0])
+        ki_r = cs.get("ki_range", [0.05, 0.30])
         kd_r = cs.get("kd_range", [0.0, 5.0])
         n_kp = cs.get("n_kp", 8)
         n_ki = cs.get("n_ki", 6)
@@ -298,7 +373,19 @@ class PIDTuner:
                 print(f"  [{i+1}/{len(candidates)}] best so far: {min(results, key=lambda r: r.mean_score).mean_score:.4f}")
 
         results.sort(key=lambda r: r.mean_score)
-        self.results["coarse"] = [r.gains_dict() | {"score": r.mean_score} for r in results]
+        feasible = [r for r in results if np.isfinite(r.mean_score)]
+        print(
+            f"  Regulatory pass: {len(feasible)}/{len(results)} candidates "
+            f"(Stage 1 feasibility filter)"
+        )
+        self.results["coarse"] = [
+            r.gains_dict()
+            | {
+                "score": r.mean_score,
+                "regulatory_feasible": np.isfinite(r.mean_score),
+            }
+            for r in results
+        ]
         return results
 
     def run_refinement(
@@ -314,7 +401,11 @@ class PIDTuner:
         length = eval_cfg.get("episode_length", 800)
         modes = eval_cfg.get("disturbance_modes", ["normal", "heatwave", "nutrient_depletion"])
 
-        seeds = top_from_coarse[:top_n]
+        cs = self.tune_cfg.get("coarse_search", {})
+        ki_min, ki_max = cs.get("ki_range", [0.05, 0.30])
+        seeds = [r for r in top_from_coarse[:top_n] if np.isfinite(r.mean_score)]
+        if not seeds:
+            seeds = top_from_coarse[:top_n]
         refined: List[PIDCandidateResult] = []
 
         for base in seeds:
@@ -322,7 +413,7 @@ class PIDTuner:
                 if dk == di == dd == 0:
                     continue
                 kp = max(0.05, base.kp + dk * step_kp)
-                ki = max(0.0, base.ki + di * step_ki)
+                ki = float(np.clip(base.ki + di * step_ki, ki_min, ki_max))
                 kd = max(0.0, base.kd + dd * step_kd)
                 scores = []
                 for mode in modes:
@@ -343,7 +434,14 @@ class PIDTuner:
                 )
 
         refined.sort(key=lambda r: r.mean_score)
-        self.results["refinement"] = [r.gains_dict() | {"score": r.mean_score} for r in refined[:50]]
+        self.results["refinement"] = [
+            r.gains_dict()
+            | {
+                "score": r.mean_score,
+                "regulatory_feasible": np.isfinite(r.mean_score),
+            }
+            for r in refined[:50]
+        ]
         return refined
 
     def run_stochastic_validation(
@@ -414,17 +512,40 @@ class PIDTuner:
         self.results["validation"] = report
         return report
 
+    def _select_best(self, candidates: List[PIDCandidateResult]) -> PIDCandidateResult:
+        feasible = [c for c in candidates if np.isfinite(c.mean_score)]
+        if feasible:
+            return feasible[0]
+        print(
+            "WARNING: No candidates passed regulatory constraints. "
+            "Best infeasible candidate selected — relax constraints or extend horizon."
+        )
+        return candidates[0]
+
     def run_full_tuning(self) -> Dict[str, Any]:
         """Execute all stages and select best gains."""
         coarse = self.run_coarse_search()
-        best_coarse = coarse[0]
-        print(f"Coarse best: Kp={best_coarse.kp:.3f} Ki={best_coarse.ki:.4f} Kd={best_coarse.kd:.3f} score={best_coarse.mean_score:.4f}")
+        best_coarse = self._select_best(coarse)
+        print(
+            f"Coarse best: Kp={best_coarse.kp:.3f} Ki={best_coarse.ki:.4f} "
+            f"Kd={best_coarse.kd:.3f} score={best_coarse.mean_score:.4f}"
+        )
 
         refined = self.run_refinement(coarse)
         pool = sorted(coarse + refined, key=lambda r: r.mean_score)
-        best_ref = pool[0]
-        print(f"Refinement best: Kp={refined[0].kp:.3f} Ki={refined[0].ki:.4f} Kd={refined[0].kd:.3f} score={refined[0].mean_score:.4f}" if refined else "Refinement: skipped")
-        print(f"Global best:     Kp={best_ref.kp:.3f} Ki={best_ref.ki:.4f} Kd={best_ref.kd:.3f} score={best_ref.mean_score:.4f}")
+        best_ref = self._select_best(pool)
+        if refined:
+            ref_best = self._select_best(refined)
+            print(
+                f"Refinement best: Kp={ref_best.kp:.3f} Ki={ref_best.ki:.4f} "
+                f"Kd={ref_best.kd:.3f} score={ref_best.mean_score:.4f}"
+            )
+        else:
+            print("Refinement: skipped")
+        print(
+            f"Global best:     Kp={best_ref.kp:.3f} Ki={best_ref.ki:.4f} "
+            f"Kd={best_ref.kd:.3f} score={best_ref.mean_score:.4f}"
+        )
 
         val_report = self.run_stochastic_validation(best_ref)
         print(f"Validation mean score: {val_report['mean_score']:.4f} (std={val_report['std_score']:.4f})")
@@ -445,6 +566,7 @@ class PIDTuner:
             "kd": best_ref.kd,
             "coarse_score": best_coarse.mean_score,
             "refinement_score": best_ref.mean_score,
+            "regulatory_feasible": np.isfinite(best_ref.mean_score),
             "validation": val_report,
             "metrics": metrics,
         }
@@ -457,8 +579,22 @@ class PIDTuner:
     def save_results(self, path: Path) -> None:
         path = Path(path)
         path.parent.mkdir(parents=True, exist_ok=True)
+
+        def _json_safe(obj: Any) -> Any:
+            if isinstance(obj, dict):
+                return {k: _json_safe(v) for k, v in obj.items()}
+            if isinstance(obj, list):
+                return [_json_safe(v) for v in obj]
+            if isinstance(obj, (np.bool_,)):
+                return bool(obj)
+            if isinstance(obj, (np.floating, np.integer)):
+                return obj.item()
+            if isinstance(obj, float) and (np.isinf(obj) or np.isnan(obj)):
+                return None if np.isnan(obj) else "inf"
+            return obj
+
         with open(path, "w") as f:
-            json.dump(self.results, f, indent=2)
+            json.dump(_json_safe(self.results), f, indent=2)
 
     def update_config_evaluation_pid(self) -> None:
         """Write best gains into config evaluation.pid (in-memory)."""
