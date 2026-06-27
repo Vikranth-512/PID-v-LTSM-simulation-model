@@ -1,105 +1,228 @@
-# Learned Nutrient Dosing Control for a nonlinear delayed aquatic ecosystem.
+# HydroControl: A Synthetic Benchmark Environment for Hydroponic Nutrient Regulation
 
-The pipeline includes:
+HydroControl is a reproducible benchmark environment for evaluating control algorithms for hydroponic nutrient regulation under nonlinear dynamics, delayed nutrient assimilation, environmental disturbances, and actuator constraints.
 
-nonlinear ecosystem simulation,
-synthetic trajectory generation,
-optimization-generated control labels,
-LSTM sequence modeling,
-PID auto-tuning,
-disturbance robustness testing,
-and publication-style evaluation/visualization.
+The benchmark combines a physics-inspired simulation environment, optimization-derived expert demonstrations, standardized disturbance scenarios, and reproducible evaluation protocols to support fair comparison between classical and learning-based control strategies.
 
-The goal is not simply to outperform classical control, but to characterize when learned controllers become advantageous in delayed, nonlinear, multi-regime ecological systems.
+The repository includes:
 
-This is **not** a forecasting model. It learns a control policy using optimization-generated pseudo-labels and LSTM sequence modeling.
+* Nonlinear hydroponic process simulation
+* Synthetic benchmark trajectory generation
+* Optimization-derived expert control labels
+* Standardized disturbance suite
+* LSTM reference controller
+* Tuned PID baseline controller
+* Closed-loop benchmark evaluation
+* Publication-quality visualization and diagnostics
 
-## Overview
+Rather than proposing a single control algorithm, HydroControl provides a common experimental framework that can be used to evaluate, compare, and reproduce future research on intelligent process control.
 
-### The system continuously monitors multivariate aquatic ecosystem parameters such as:
+---
 
-Electrical Conductivity (EC)
-Water Temperature
-Turbidity
-pH
-Dissolved Oxygen
+# Quick Start
 
-### and learns a control policy that outputs:
-
-Nutrient Pump Flowrate
-Pump Activation Duration
-
-to maintain ecological stability and nutrient balance in a dynamic algae cultivation environment.
-
-### Unlike conventional threshold-based systems, this project models the environment as a nonlinear delayed ecosystem with:
-
-delayed nutrient absorption,
-biological uptake,
-algae growth dynamics,
-disturbance-sensitive equilibrium,
-oscillatory instability,
-ecological collapse conditions,
-and active closed-loop control requirements.
-Core Research Goal
-
-### This project investigates the tradeoff between:
-
-Classical Stability-First Control
-(PID / rule-based control)
-
-vs
-
-Learned Precision Regulation
-(LSTM sequence policy learning)
-
-The tuned PID controller establishes a robust, conservative ecological baseline.
-
-## PID tuning (systematic baseline optimization)
+Install dependencies:
 
 ```bash
-# Full tuning (~72 coarse + refinement + validation)
-python main.py --config configs/default.yaml --stage tune_pid
-
-# Quick smoke test
-python main.py --config configs/pid_tune_quick.yaml --stage tune_pid
+pip install -r requirements.txt
 ```
 
-Outputs: `data/processed/pid_tuning_results.json`, `figures/pid_tuning/`, `data/processed/pid_tuned_gains.yaml`
+Run the complete benchmark pipeline:
 
-The enhanced PID includes anti-windup, derivative filtering, deadband, rate limiting, and output saturation. Tuning uses a weighted composite score over EC MAE, overshoot, oscillation, nutrient use, collapse fraction, and control smoothness.
+```bash
+python main.py --config configs/default.yaml --stage all
+```
 
-Figures are written to `figures/dynamics_validation/`.
+---
 
-## Labeling — Option B (Precision Regulation)
+# Individual Pipeline Stages
 
-Pseudo-labels use **long-horizon rollouts** (default 60 steps) and a modular cost:
+```bash
+python main.py --stage generate
+```
 
-- Time-weighted tracking + steady-state tail error
-- Recovery time into ±5% target band
-- Separated oscillation vs stability (late-horizon only)
-- Nonlinear overshoot (mild quadratic / severe exponential)
-- Nutrient cost with under-target relief (allows corrective dosing)
+Generate synthetic benchmark trajectories.
 
 ```bash
 python main.py --stage label
-python main.py --stage label_diagnostics   # plots → figures/labeling_diagnostics/
 ```
 
-## Architecture
+Generate optimization-derived expert demonstrations.
 
-```
-simulation/          → tank dynamics, synthetic trajectories, optimization labels
-preprocessing/       → features, sliding windows, normalization
-models/              → LSTM policy (PyTorch)
-controllers/         → PID and rule-based baselines
-training/            → losses, training loop, metrics
-simulation_runner/   → closed-loop evaluation
-visualization/       → publication plots
-configs/             → YAML experiment config
-main.py              → end-to-end orchestration
+```bash
+python main.py --stage preprocess
 ```
 
+Perform feature engineering, sequence generation, and dataset preparation.
+
+```bash
+python main.py --stage train
 ```
+
+Train the reference LSTM controller.
+
+```bash
+python main.py --stage evaluate
+```
+
+Run closed-loop benchmark evaluation.
+
+```bash
+python main.py --stage export
+```
+
+Export trained models.
+
+---
+
+# Generated Outputs
+
+| Path                                     | Description                                          |
+| ---------------------------------------- | ---------------------------------------------------- |
+| `data/synthetic/`                        | Generated benchmark trajectories                     |
+| `data/processed/`                        | Benchmark dataset, expert labels, sequences, scalers |
+| `checkpoints/`                           | Trained models and exported artifacts                |
+| `figures/`                               | Benchmark figures, diagnostics, and evaluation plots |
+| `data/processed/evaluation_results.json` | Benchmark evaluation metrics                         |
+
+---
+
+# Benchmark Overview
+
+The benchmark models a closed-loop hydroponic nutrient regulation system in which controllers continuously observe multivariate process measurements and determine nutrient dosing actions.
+
+## Observable Process Variables
+
+* Electrical Conductivity (EC)
+* Water Temperature
+* Turbidity
+* pH
+* Dissolved Oxygen
+* Ambient Temperature
+* Previous Dosing Flowrate
+* Previous Dosing Duration
+* Time Since Last Dose
+
+Additional engineered features capture temporal dynamics, historical control information, rolling statistics, and process trends, producing a 17-dimensional observation space suitable for sequential decision-making.
+
+## Control Actions
+
+Controllers produce two continuous control outputs:
+
+* Nutrient Pump Flowrate
+* Pump Activation Duration
+
+These actions are constrained by realistic actuator limits and evaluated through closed-loop interaction with the benchmark environment.
+
+---
+
+# Benchmark Environment
+
+Unlike many simplified control benchmarks that assume instantaneous actuator effects, HydroControl explicitly models delayed nutrient assimilation and nonlinear ecosystem dynamics.
+
+The benchmark incorporates:
+
+* Delayed nutrient assimilation through a multi-stage release process
+* Nonlinear nutrient uptake
+* Biological growth feedback
+* Environmental coupling
+* Nutrient saturation effects
+* Long-term nutrient memory
+* Stochastic process variability
+* Closed-loop process dynamics
+
+Together, these mechanisms create a challenging control problem that more closely resembles practical hydroponic nutrient management than stationary linear control environments.
+
+# Benchmark Dataset
+
+The benchmark dataset is generated directly from the simulation environment using optimization-derived expert demonstrations.
+
+Current release:
+
+* 200 simulation trajectories
+* 59,042 optimization-labeled samples
+* Variable trajectory lengths (100–500 timesteps)
+* 17 engineered input features
+* 2 continuous control targets
+* Standardized train/validation/test partitions
+* Sliding-window sequence generation (32 timesteps)
+
+Expert labels are generated using long-horizon optimization rather than manually designed control rules, providing a consistent supervisory signal suitable for imitation learning, supervised policy learning, and benchmark evaluation.
+
+---
+
+# Optimization-Based Expert Demonstrations
+
+Rather than relying on human annotations, HydroControl generates expert control actions using a long-horizon optimization framework.
+
+The optimization objective simultaneously considers:
+
+* Setpoint tracking accuracy
+* Recovery performance
+* Steady-state regulation
+* Oscillation suppression
+* Overshoot prevention
+* Nutrient efficiency
+* Action smoothness
+* Safety constraints
+
+The resulting expert trajectories provide standardized reference behaviour for controller development and evaluation.
+
+---
+
+# Reference Baselines
+
+The repository includes representative implementations of both classical and learning-based control strategies.
+
+## Enhanced PID Baseline
+
+```bash
+python main.py --config configs/default.yaml --stage tune_pid
+```
+
+Quick tuning:
+
+```bash
+python main.py --config configs/pid_tune_quick.yaml --stage tune_pid
+```
+
+The PID implementation includes:
+
+* Anti-windup protection
+* Derivative filtering
+* Deadband compensation
+* Rate limiting
+* Output saturation
+
+Controller gains are obtained through a multi-stage optimization procedure using a composite objective that balances tracking performance, robustness, oscillation suppression, nutrient consumption, and control smoothness.
+
+---
+
+## LSTM Reference Controller
+
+The repository also includes a reference Long Short-Term Memory (LSTM) policy trained using optimization-derived expert demonstrations.
+
+The model receives fixed-length sequences of engineered process features and predicts continuous nutrient dosing actions.
+
+The implementation serves as a reproducible learning-based baseline for future benchmark comparisons rather than the primary contribution of the repository.
+
+---
+
+# Repository Structure
+
+```text
+simulation/          → benchmark dynamics and trajectory generation
+preprocessing/       → feature engineering and sequence generation
+models/              → reference LSTM controller
+controllers/         → PID controller and tuning framework
+training/            → training pipeline and evaluation metrics
+simulation_runner/   → closed-loop benchmark evaluation
+visualization/       → publication-quality figures
+configs/             → experiment configuration
+main.py              → end-to-end benchmark pipeline
+```
+
+```text
 simulation/
 │
 ├── dynamics.py
@@ -144,66 +267,50 @@ configs/
 └── pid_tune_quick.yaml
 ```
 
-## Quick Start
+# Evaluation Metrics
 
-```bash
-pip install -r requirements.txt
-python main.py --config configs/default.yaml --stage all
-```
+The benchmark reports standardized controller performance using metrics including:
 
-### Individual stages
+* EC tracking error
+* Overshoot
+* Oscillation
+* Stability
+* Nutrient consumption
+* Control smoothness
+* Disturbance recovery
+* Long-horizon regulation performance
 
-```bash
-python main.py --stage generate    # synthetic CSV trajectories
-python main.py --stage label       # optimization-based labels
-python main.py --stage preprocess  # features + sequences + scalers
-python main.py --stage train       # LSTM policy training
-python main.py --stage evaluate    # offline + closed-loop benchmarks
-python main.py --stage export      # TorchScript / ONNX export
-```
+These metrics enable consistent comparison between classical controllers, learning-based policies, reinforcement learning methods, model predictive control, adaptive controllers, and future control approaches.
 
-## Outputs
+---
 
-| Path | Description |
-|------|-------------|
-| `data/synthetic/` | Raw trajectory CSVs |
-| `data/processed/` | Labeled data, sequences, scalers |
-| `checkpoints/` | Best model weights, export artifacts |
-| `figures/` | Training curves, EC trajectories, controller comparisons |
-| `data/processed/evaluation_results.json` | Metrics summary |
+# Visualization and Diagnostics
 
-## Control Policy
+The repository includes utilities for generating publication-quality figures covering:
 
-- **Input**: Window of engineered sensor features `(seq_len, n_features)`
-- **Output**: `(flowrate, duration)`
-- **Labels**: Short-horizon constrained search minimizing EC error, nutrient cost, instability, overshoot
+* Environment dynamics
+* Benchmark trajectories
+* Dataset statistics
+* Controller evaluation
+* Disturbance robustness
+* Optimization diagnostics
+* Closed-loop performance
 
-## Generated artifacts include:
+---
 
-trajectory CSVs,
-optimization labels,
-trained policies,
-controller metrics,
-publication-quality plots,
-TorchScript exports.
-Research Contributions
+# Reproducibility
 
-## Metrics include:
+HydroControl is designed as a reproducible research benchmark.
 
-EC tracking error,
-overshoot,
-oscillation amplitude,
-nutrient efficiency,
-control smoothness,
-disturbance recovery,
-collapse prevention.
-Validation and Diagnostics
+The repository includes:
 
-The project includes extensive visualization and diagnostics:
+* Fixed experimental seeds
+* Trajectory-level train/validation/test splits
+* Train-only feature normalization
+* Experiment metadata logging
+* Optimization-derived expert labels
+* Standardized disturbance scenarios
+* Reference PID and LSTM implementations
+* Publication-quality evaluation scripts
 
-## Reproducibility
-
-- Fixed seeds in `configs/default.yaml`
-- Trajectory-level train/val/test splits (no window leakage)
-- Train-only scaler fitting
-- Experiment metadata JSON per run
+These components enable reproducible experimentation and facilitate fair comparison of future hydroponic nutrient regulation algorithms within a common benchmark framework.
