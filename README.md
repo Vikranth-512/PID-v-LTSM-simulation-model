@@ -19,7 +19,7 @@ Rather than proposing a single control algorithm, HydroControl provides a common
 
 ---
 
-# Quick Start
+## Quick Start
 
 Install dependencies:
 
@@ -35,7 +35,7 @@ python main.py --config configs/default.yaml --stage all
 
 ---
 
-# Individual Pipeline Stages
+### Individual Pipeline Stages
 
 ```bash
 python main.py --stage generate
@@ -75,7 +75,7 @@ Export trained models.
 
 ---
 
-# Generated Outputs
+## Generated Outputs
 
 | Path                                     | Description                                          |
 | ---------------------------------------- | ---------------------------------------------------- |
@@ -87,11 +87,11 @@ Export trained models.
 
 ---
 
-# Benchmark Overview
+## Benchmark Overview
 
 The benchmark models a closed-loop hydroponic nutrient regulation system in which controllers continuously observe multivariate process measurements and determine nutrient dosing actions.
 
-## Observable Process Variables
+### Observable Process Variables
 
 * Electrical Conductivity (EC)
 * Water Temperature
@@ -105,7 +105,7 @@ The benchmark models a closed-loop hydroponic nutrient regulation system in whic
 
 Additional engineered features capture temporal dynamics, historical control information, rolling statistics, and process trends, producing a 17-dimensional observation space suitable for sequential decision-making.
 
-## Control Actions
+### Control Actions
 
 Controllers produce two continuous control outputs:
 
@@ -116,7 +116,7 @@ These actions are constrained by realistic actuator limits and evaluated through
 
 ---
 
-# Benchmark Environment
+## Benchmark Environment
 
 Unlike many simplified control benchmarks that assume instantaneous actuator effects, HydroControl explicitly models delayed nutrient assimilation and nonlinear ecosystem dynamics.
 
@@ -133,7 +133,7 @@ The benchmark incorporates:
 
 Together, these mechanisms create a challenging control problem that more closely resembles practical hydroponic nutrient management than stationary linear control environments.
 
-# Benchmark Dataset
+## Benchmark Dataset
 
 The benchmark dataset is generated directly from the simulation environment using optimization-derived expert demonstrations.
 
@@ -151,7 +151,7 @@ Expert labels are generated using long-horizon optimization rather than manually
 
 ---
 
-# Optimization-Based Expert Demonstrations
+## Optimization-Based Expert Demonstrations
 
 Rather than relying on human annotations, HydroControl generates expert control actions using a long-horizon optimization framework.
 
@@ -170,11 +170,11 @@ The resulting expert trajectories provide standardized reference behaviour for c
 
 ---
 
-# Reference Baselines
+## Reference Baselines
 
 The repository includes representative implementations of both classical and learning-based control strategies.
 
-## Enhanced PID Baseline
+### Enhanced PID Baseline
 
 ```bash
 python main.py --config configs/default.yaml --stage tune_pid
@@ -198,7 +198,7 @@ Controller gains are obtained through a multi-stage optimization procedure using
 
 ---
 
-## LSTM Reference Controller
+### LSTM Reference Controller
 
 The repository also includes a reference Long Short-Term Memory (LSTM) policy trained using optimization-derived expert demonstrations.
 
@@ -208,7 +208,7 @@ The implementation serves as a reproducible learning-based baseline for future b
 
 ---
 
-# Repository Structure
+## Repository Structure
 
 ```text
 simulation/          → benchmark dynamics and trajectory generation
@@ -267,7 +267,7 @@ configs/
 └── pid_tune_quick.yaml
 ```
 
-# Evaluation Metrics
+## Evaluation Metrics
 
 The benchmark reports standardized controller performance using metrics including:
 
@@ -284,21 +284,7 @@ These metrics enable consistent comparison between classical controllers, learni
 
 ---
 
-# Visualization and Diagnostics
-
-The repository includes utilities for generating publication-quality figures covering:
-
-* Environment dynamics
-* Benchmark trajectories
-* Dataset statistics
-* Controller evaluation
-* Disturbance robustness
-* Optimization diagnostics
-* Closed-loop performance
-
----
-
-# Reproducibility
+## Reproducibility
 
 HydroControl is designed as a reproducible research benchmark.
 
